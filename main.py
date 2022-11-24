@@ -7,8 +7,8 @@ from pybricks.tools import wait, StopWatch, DataLog
 from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
-#import numpy as np
-import random as rand
+from urandom import randint, choice
+from array import *
 
 # Create your objects here - initialize objects
 ev3 = EV3Brick()
@@ -26,64 +26,80 @@ eyes = UltrasonicSensor(Port.S4)
 robot = DriveBase(left_leg, right_leg, 25, 105)
 
 #Variables
-DRIVE_DISTANCE = 200
+DRIVE_SPEED = 100
 
-POSSIBLE_PLAYS = np.array(['RECON', 'ATTACK', 'MOVEMENT'])
-POSSIBLE_ATTACKS = np.array(['SHOT', 'STUN'])
+POSSIBLE_PLAYS = ['RECON', 'MOVEMENT', 'ATTACK'] # Attack move only joins possible plays when zombie is dettected
+POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
 
-matrix_map = np.array([
-    ['Robot',2,3,4,5,6],
+matrix_map = [
+    ['Robot',2,3,4,5,'Zombie'],
     [1,2,3,4,5,6],
     [1,2,3,4,5,6],
     [1,2,3,4,5,6],
     [1,2,3,4,5,6],
-    [1,2,3,4,5,'Hornet']])
+    ['Zombie',2,3,4,5,'Hornet']]
 
 # Write your program here.
 
-def move_front:
+def move_front():
     #verifica a posição na matriz
-    robot.straight(DRIVE_DISTANCE)#movimentar em frente
+    robot.drive(DRIVE_SPEED)#movimentar em frente
+    if color_sensor.color() == Color.BLACK:
+        robot.stop()
     #atualiza a posição na matriz
 
-def move_back:
+def move_back():
     robot.straight(-180)
 
-def move_left:
-    robot.turn(90)
+def move_left():
+    robot.turn(127.5)
     robot.straight(DRIVE_DISTANCE)
+    robot.turn(-135)
 
-def move_right:
-    robot.turn(-90)
+def move_right():
+    robot.turn(-127.5)
     robot.straight(DRIVE_DISTANCE)
+    robot.turn(135)
 
-def random_movement:
-    possible_movements = np.array(['FRONT', 'BACK', 'RIGHT', 'LEFT'])
+def random_movement():
+    possible_movements = ['FRONT', 'BACK', 'RIGHT', 'LEFT']
 
-    movement = rand.choice(possible_movements)
+    movement = choice(possible_movements)
 
-    match movement:
-        case 'FRONT':
-            move_front()
-        case 'BACK':
-            move_back()
-        case 'RIGHT':
-            move_right()
-        case 'LEFT':
-            move_left()
-        case _:
-            return 0
+    if movement == 'FRONT':
+        move_front()
+        update_robot_position()
+    elif movement == 'BACK':
+        move_back()
+    elif movement == 'RIGHT':
+        move_right()
+    elif movement == 'LEFT':
+        move_left()
+
+def update_robot_position():
+    matrix_map[0][0] = 0
+    matrix_map[1][0] = 'Robot'
+
+def shot():
+    #only shots if a bullet has been found
+    #left_arm_motor shots a ball
+    return 0
+
+def random_attack():
+    attack = choice(POSSIBLE_ATTACKS)
+    return 0
 
 # Write your program here.
-if right_shoulder.pressed():
-    play = rand.choice(POSSIBLE_PLAYS)
-
-    match play:
-        case 'RECON':
-            return 1
-        case 'ATTACK':
-            return 2
-        case 'MOVEMENT':
-            return 3
-        case _:
-            return 0
+while(True):
+    if right_shoulder.pressed():
+        print('pressed') # DELETE LATER
+        play = choice(POSSIBLE_PLAYS)
+        print(play)
+        if play == 'RECON':
+            #does recognizion move
+            ev3.speaker.play_file(SoundFile.YES)
+        elif play == 'ATTACK':
+            #random_attack()
+            ev3.speaker.play_file(SoundFile.KUNG_FU)
+        elif play == 'MOVEMENT':
+            random_movement()
