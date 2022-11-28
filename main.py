@@ -26,11 +26,14 @@ eyes = UltrasonicSensor(Port.S4)
 robot = DriveBase(left_leg, right_leg, 25, 105)
 
 #Variables
-DRIVE_SPEED = 100
+DRIVE_DISTANCE = 180
 
 POSSIBLE_PLAYS = ['RECON', 'MOVEMENT', 'ATTACK'] # Attack move only joins possible plays when zombie is dettected
+POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
+POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT','LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
 
+'''
 matrix_map = [
     ['Robot',2,3,4,5,'Zombie'],
     [1,2,3,4,5,6],
@@ -39,46 +42,138 @@ matrix_map = [
     [1,2,3,4,5,6],
     ['Zombie',2,3,4,5,'Hornet']]
 
+
+MAX_LINES = 5
+MAX_COLUMNS = 5
+
+'''
+
+line_counter = 0
+column_counter = 0
+plays_counter = 0
+
 # Write your program here.
 
 def move_front():
-    #verifica a posição na matriz
-    robot.drive(DRIVE_SPEED)#movimentar em frente
-    if color_sensor.color() == Color.BLACK:
-        robot.stop()
-    #atualiza a posição na matriz
+    global line_counter
+    robot.straight(180)
+    #atualiza a line_counter
+    line_counter = line_counter + 1
 
 def move_back():
+    global line_counter
     robot.straight(-180)
+    #atualiza a line_counter
+    line_counter = line_counter - 1
 
 def move_left():
-    robot.turn(127.5)
-    robot.straight(DRIVE_DISTANCE)
-    robot.turn(-135)
-
-def move_right():
+    global column_counter
     robot.turn(-127.5)
     robot.straight(DRIVE_DISTANCE)
     robot.turn(135)
+    #atualiza a column_counter
+    column_counter = column_counter + 1
+
+def move_right():
+    global column_counter
+    robot.turn(127.5)
+    robot.straight(DRIVE_DISTANCE)
+    robot.turn(-135)
+    #atualiza a column_counter
+    column_counter = column_counter - 1
+
+def move_double():
+    double = choice(POSSIBLE_DOUBLE)
+
+    if double == 'FRONT-FRONT':
+        #possible movement when line = 0,1,2,3
+        move_front()
+        move_front()
+    elif double == 'FRONT-RIGHT':
+        #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
+        move_front()
+        move_right()
+    elif double == 'FRONT-LEFT':
+        #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
+        move_front()
+        move_left()
+    elif double == 'BACK-BACK':
+        #possible movement when line = 2,3,4 and column = 0,1,2,3,4,5
+        move_back()
+        move_back()
+    elif double == 'BACK-RIGHT':
+        #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
+        move_back()
+        move_right()
+    elif double == 'BACK-LEFT':
+        #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
+        move_back()
+        move_left()
+    elif double == 'LEFT-LEFT':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
+        move_left()
+        move_left()
+    elif double == 'LEFT-FRONT':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4
+        move_left()
+        move_front()
+    elif double == 'LEFT-BACK':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
+        move_left()
+        move_back()
+    elif double == 'RIGHT-RIGHT':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
+        move_right()
+        move_right()
+    elif double == 'RIGHT-FRONT':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
+        move_right()
+        move_front()
+    elif double == 'RIGHT-BACK':
+        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
+        move_right()
+        move_back()
+
 
 def random_movement():
-    possible_movements = ['FRONT', 'BACK', 'RIGHT', 'LEFT']
-
-    movement = choice(possible_movements)
+    movement = choice(POSSIBLE_MOVEMENTS)
 
     if movement == 'FRONT':
-        move_front()
-        update_robot_position()
+        if line_counter != 5:
+            move_front()
+        else:
+            print ('not front')
+            return random_movement()
+            
     elif movement == 'BACK':
-        move_back()
+        if line_counter != 0:
+            move_back()
+        else:
+            print ('not back')
+            return random_movement()
+        
     elif movement == 'RIGHT':
-        move_right()
+        if column_counter != 0:
+            move_right()
+        else:
+            print ('not right')
+            return random_movement()
+        
     elif movement == 'LEFT':
-        move_left()
+        if column_counter != 5:
+            move_left()
+        else:
+            print ('not left')
+            return random_movement()
+    elif movement == 'DOUBLE':
+        move_double()
 
+
+'''
 def update_robot_position():
     matrix_map[0][0] = 0
     matrix_map[1][0] = 'Robot'
+'''
 
 def shot():
     #only shots if a bullet has been found
@@ -103,3 +198,5 @@ while(True):
             ev3.speaker.play_file(SoundFile.KUNG_FU)
         elif play == 'MOVEMENT':
             random_movement()
+            print(line_counter)
+            print(column_counter)
