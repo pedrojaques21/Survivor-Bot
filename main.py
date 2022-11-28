@@ -86,54 +86,89 @@ def move_double():
     double = choice(POSSIBLE_DOUBLE)
 
     if double == 'FRONT-FRONT':
-        #possible movement when line = 0,1,2,3
-        move_front()
-        move_front()
+        #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
+        if line_counter <4:
+            move_front()
+            move_front()
+        else :
+            return move_double()
     elif double == 'FRONT-RIGHT':
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
-        move_front()
-        move_right()
+        if (line_counter !=5 and column_counter !=0 ):
+            move_front()
+            move_right()
+        else:
+            return move_double()
     elif double == 'FRONT-LEFT':
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
-        move_front()
-        move_left()
+        if (line_counter !=5 and column_counter !=5) :
+            move_front()
+            move_left()
+        else:
+            return move_double()
     elif double == 'BACK-BACK':
-        #possible movement when line = 2,3,4 and column = 0,1,2,3,4,5
-        move_back()
-        move_back()
+        #possible movement when line = 2,3,4,5 and column = 0,1,2,3,4,5
+        if line_counter > 1:
+            move_back()
+            move_back()
+        else :
+            return move_double()
     elif double == 'BACK-RIGHT':
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        move_back()
-        move_right()
+        if (line_counter !=0 and column_counter !=0 ):
+            move_back()
+            move_right()
+        else :
+            return move_double()
     elif double == 'BACK-LEFT':
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
-        move_back()
-        move_left()
+        if (line_counter !=0 and column_counter !=5):
+            move_back()
+            move_left()
+        else :
+            return move_double()
     elif double == 'LEFT-LEFT':
         #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
-        move_left()
-        move_left()
+        if column_counter <4:
+            move_left()
+            move_left()
+        else :
+            return move_double()
     elif double == 'LEFT-FRONT':
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4
-        move_left()
-        move_front()
+        #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
+        if (line_counter !=5 and column_counter !=5) :
+            move_left()
+            move_front()
+        else : 
+            return move_double()
     elif double == 'LEFT-BACK':
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
-        move_left()
-        move_back()
+        #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
+        if (line_counter !=0 and column_counter !=5) :
+            move_left()
+            move_back()
+        else :
+            return move_double()
     elif double == 'RIGHT-RIGHT':
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
-        move_right()
-        move_right()
+        #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
+        if column_counter >1:
+            move_right()
+            move_right()
+        else :
+            return move_double()
     elif double == 'RIGHT-FRONT':
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
-        move_right()
-        move_front()
+        #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
+        if (line_counter != 5 and column_counter != 0 ): 
+            move_right()
+            move_front()
+        else: 
+            return move_double()
     elif double == 'RIGHT-BACK':
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3,4,5
-        move_right()
-        move_back()
-
+        #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
+        if (line_counter !=0 and column_counte !=0 ): 
+            move_right()
+            move_back()
+        else:
+            return move_double()
 
 def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
@@ -200,3 +235,4 @@ while(True):
             random_movement()
             print(line_counter)
             print(column_counter)
+            ev3.speaker.play_file('test.wav')
