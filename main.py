@@ -294,7 +294,7 @@ def random_recon():
         #Robot in column 0 but not in line 0 or 5 (cant recon right)
         if(line_counter != 5 and line_counter != 0):
             #recon fornt
-            print('front')
+            print('Front')
             recon()
             wait(3000)
             #turn left
@@ -308,7 +308,7 @@ def random_recon():
             robot.turn(-130)
             wait(3000)
             #recon back
-            print('back')
+            print('Back')
             recon()
             wait(3000)
             #turn front
@@ -320,14 +320,14 @@ def random_recon():
         #Robot in column 5 and line 0 (cant recon left or back)
         if (line_counter == 0):
             #recon front
-            print('front')
+            print('Front')
             recon()
             wait(3000)
             #turn right
             robot.turn(130)
             wait(3000)
             #recon right
-            print('right')
+            print('Right')
             recon()
             wait(3000)
             #turn front
@@ -340,14 +340,14 @@ def random_recon():
             robot.turn(130)
             wait(3000)
             #recon right
-            print('right')
+            print('Right')
             recon()
             wait(3000)
             #turn back
             robot.turn(130)
             wait(3000)
             #recon back
-            print('back')
+            print('Back')
             recon()
             wait(3000)
             #turn front
@@ -357,21 +357,21 @@ def random_recon():
         #Robot in column 5 and not in line 5 or 0 (cant recon left)
         if(line_counter != 5 and line_counter != 0):
             #recon front
-            print('front')
+            print('Front')
             recon()
             wait(3000)
             #turn right
             robot.turn(130)
             wait(3000)
             #recon right
-            print('right')
+            print('Right')
             recon()
             wait(3000)
             #turn back
             robot.turn(130)
             wait(3000)
             #recon back
-            print('back')
+            print('Back')
             recon()
             wait(3000)
             #turn front
@@ -380,14 +380,14 @@ def random_recon():
 
     if (line_counter == 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('front')
+        print('Front')
         recon()
         wait(3000)
         #turn right
         robot.turn(130)
         wait(3000)
         #recon right
-        print('right')
+        print('Right')
         recon()
         wait(3000)
         #turn left
@@ -406,14 +406,14 @@ def random_recon():
         robot.turn(130)
         wait(3000)
         #recon right
-        print('right')
+        print('Right')
         recon()
         wait(3000)
         #turn back
         robot.turn(130)
         wait(3000)
         #recon back
-        print('back')
+        print('Back')
         recon()
         wait(3000)
         #turn left
@@ -428,21 +428,21 @@ def random_recon():
         wait(3000)
     if (line_counter != 5 and line_counter != 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('front')
+        print('Front')
         recon()
         wait(3000)
         #turn right
         robot.turn(130)
         wait(3000)
         #recon right
-        print('right')
+        print('Right')
         recon()
         wait(3000)
         #turn back
         robot.turn(130)
         wait(3000)
         #recon back
-        print('back')
+        print('Back')
         recon()
         wait(3000)
         #turn left
@@ -459,11 +459,9 @@ def random_recon():
 # Write your program here.
 while(True):
     if right_shoulder.pressed():
-        print('pressed') # DELETE LATER
+        print('Pressed') # DELETE LATER
         play = choice(POSSIBLE_PLAYS)
         print(play)
-        shot()
-        '''
         if play == 'RECON':
             #does recognizion move
             ev3.speaker.play_file(SoundFile.YES)
@@ -476,4 +474,3 @@ while(True):
             print(line_counter)
             print(column_counter)
             ev3.speaker.play_file('test.wav')
-        '''
