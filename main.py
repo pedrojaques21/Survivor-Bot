@@ -220,8 +220,9 @@ def update_robot_position():
 '''
 
 def smell():
-    '''
+    
     color = color_sensor.color()
+
     if(color.BLUE):#Light Zombie smell detected
         print(color)
         ev3.speaker.say('Zombie close')
@@ -230,7 +231,7 @@ def smell():
         print(color) 
         ev3.speaker.say('Zombie very close')
         wait(2000)
-    '''
+    
     return 0
 
 def shot():
