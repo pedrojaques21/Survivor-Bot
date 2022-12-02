@@ -29,7 +29,7 @@ robotGun = Motor(Port.A, positive_direction=Direction.CLOCKWISE, gears=None)
 #Variables
 DRIVE_DISTANCE = 180
 
-POSSIBLE_PLAYS = ['RECON', 'MOVEMENT', 'ATTACK'] # Attack move only joins possible plays when zombie is dettected
+POSSIBLE_PLAYS = ['RECON', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
 POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT','LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
@@ -96,21 +96,21 @@ def move_double():
 
     if double == 'FRONT-FRONT':
         #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
-        if line_counter <4:
+        if line_counter < 4:
             move_front()
             move_front()
         else :
             return move_double()
     elif double == 'FRONT-RIGHT':
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
-        if (line_counter !=5 and column_counter !=0 ):
+        if (line_counter < 5 and column_counter > 0 ):
             move_front()
             move_right()
         else:
             return move_double()
     elif double == 'FRONT-LEFT':
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
-        if (line_counter !=5 and column_counter !=5) :
+        if (line_counter < 5 and column_counter < 5) :
             move_front()
             move_left()
         else:
@@ -124,56 +124,56 @@ def move_double():
             return move_double()
     elif double == 'BACK-RIGHT':
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (line_counter !=0 and column_counter !=0 ):
+        if (line_counter > 0 and column_counter > 0 ):
             move_back()
             move_right()
         else :
             return move_double()
     elif double == 'BACK-LEFT':
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
-        if (line_counter !=0 and column_counter !=5):
+        if (line_counter > 0 and column_counter < 5):
             move_back()
             move_left()
         else :
             return move_double()
     elif double == 'LEFT-LEFT':
         #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
-        if column_counter <4:
+        if column_counter < 4:
             move_left()
             move_left()
         else :
             return move_double()
     elif double == 'LEFT-FRONT':
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
-        if (line_counter !=5 and column_counter !=5) :
+        if (line_counter < 5 and column_counter < 5) :
             move_left()
             move_front()
         else : 
             return move_double()
     elif double == 'LEFT-BACK':
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
-        if (line_counter !=0 and column_counter !=5) :
+        if (line_counter > 0 and column_counter < 5) :
             move_left()
             move_back()
         else :
             return move_double()
     elif double == 'RIGHT-RIGHT':
         #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
-        if column_counter >1:
+        if column_counter > 1:
             move_right()
             move_right()
         else :
             return move_double()
     elif double == 'RIGHT-FRONT':
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
-        if (line_counter != 5 and column_counter != 0 ): 
+        if (line_counter < 5 and column_counter > 0 ): 
             move_right()
             move_front()
         else: 
             return move_double()
     elif double == 'RIGHT-BACK':
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (line_counter !=0 and column_counter !=0 ): 
+        if (line_counter > 0 and column_counter >0 ): 
             move_right()
             move_back()
         else:
@@ -183,31 +183,31 @@ def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
 
     if movement == 'FRONT':
-        if line_counter != 5:
+        if line_counter < 5:
             move_front()
         else:
-            print ('not front')
+            print ('Can not go front!')
             return random_movement()
             
     elif movement == 'BACK':
-        if line_counter != 0:
+        if line_counter > 0:
             move_back()
         else:
-            print ('not back')
+            print ('Can not go back!')
             return random_movement()
         
     elif movement == 'RIGHT':
-        if column_counter != 0:
+        if column_counter > 0:
             move_right()
         else:
-            print ('not right')
+            print ('Can not go right!')
             return random_movement()
         
     elif movement == 'LEFT':
-        if column_counter != 5:
+        if column_counter < 5:
             move_left()
         else:
-            print ('not left')
+            print ('Can not go left!')
             return random_movement()
     elif movement == 'DOUBLE':
         move_double()
@@ -221,13 +221,16 @@ def update_robot_position():
 
 def smell():
     
+    global POSSIBLE_PLAYS
+
     color = color_sensor.color()
 
     if(color == Color.BLUE):     #Color Blue detected, Zombie is 2 blocks away
         print(color)
         ev3.speaker.say('Zombie close')
         wait(2000)
-    if(color == Color.RED):      #Color Red detected, Zombie is 1 blocks away
+    if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+        POSSIBLE_PLAYS.append('ATTACK') # Zombie is 1 block away so the Attack movement is added to de possible plays array
         print(color) 
         ev3.speaker.say('Zombie very close')
         wait(2000)
@@ -240,6 +243,11 @@ def shot():
 
 def random_attack():
     attack = choice(POSSIBLE_ATTACKS)
+
+    if atttack == 'STUN':
+        ev3.speaker.play_file(SoundFile.KUNG_FU)
+    elif attack == 'SHOT':
+        shot()
     return 0
 
 def recon():
@@ -459,18 +467,22 @@ def random_recon():
 # Write your program here.
 while(True):
     if right_shoulder.pressed():
+
         print('Pressed') # DELETE LATER
+
         play = choice(POSSIBLE_PLAYS)
+
         print(play)
+
         if play == 'RECON':
             #does recognizion move
-            ev3.speaker.play_file(SoundFile.YES)
+            ev3.speaker.say('DOING RECON')
             random_recon()
         elif play == 'ATTACK':
             #random_attack()
-            ev3.speaker.play_file(SoundFile.KUNG_FU)
+            ev3.speaker.play_file('ATTACKING')
         elif play == 'MOVEMENT':
             random_movement()
             print(line_counter)
             print(column_counter)
-            ev3.speaker.play_file('test.wav')
+            ev3.speaker.play_file('ON MY WAY')
