@@ -223,11 +223,11 @@ def smell():
     
     color = color_sensor.color()
 
-    if(color.BLUE):#Light Zombie smell detected
+    if(color == Color.BLUE):     #Color Blue detected, Zombie is 2 blocks away
         print(color)
         ev3.speaker.say('Zombie close')
         wait(2000)
-    if(color.RED):#Strong Zombie smell detected
+    if(color == Color.RED):      #Color Red detected, Zombie is 1 blocks away
         print(color) 
         ev3.speaker.say('Zombie very close')
         wait(2000)
@@ -236,10 +236,6 @@ def smell():
 
 def shot():
     left_arm_motor.run_time(700,3000)
-    #robotGun.speed(50)
-    #robotGun.stop()
-    #only shots if a bullet has been found
-    #left_arm_motor shots a ball
     return 0
 
 def random_attack():
