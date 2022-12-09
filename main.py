@@ -24,12 +24,12 @@ right_shoulder = TouchSensor(Port.S3)
 eyes = UltrasonicSensor(Port.S4)
 
 robot = DriveBase(left_leg, right_leg, 25, 105)
-robotGun = Motor(Port.A, positive_direction=Direction.CLOCKWISE, gears=None)
+
+robot.settings(190, 100, 190, 100)
 
 #Variables
-DRIVE_DISTANCE = 180
-
-POSSIBLE_PLAYS = ['RECON', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
+DRIVE_DISTANCE = 200
+POSSIBLE_PLAYS = ['RECON', 'MOVEMENT', 'MOVEMENT', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
 POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT','LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
@@ -60,36 +60,32 @@ def move_front():
     robot.straight(180)
     #atualiza a line_counter
     line_counter = line_counter + 1
-    #Looks for color
-    smell()
 
 def move_back():
     global line_counter
     robot.straight(-180)
     #atualiza a line_counter
     line_counter = line_counter - 1
-    #Looks for color
-    smell()
 
 def move_left():
     global column_counter
-    robot.turn(-127.5)
+    robot.turn(-128)
     robot.straight(DRIVE_DISTANCE)
     robot.turn(135)
+    #robot.reset_angle(0)
+    #robot.reset_angle(0)
     #atualiza a column_counter
     column_counter = column_counter + 1
-    #Looks for color
-    smell()
 
 def move_right():
     global column_counter
-    robot.turn(127.5)
+    robot.turn(128)
     robot.straight(DRIVE_DISTANCE)
     robot.turn(-135)
+    right_leg.reset_angle(0)
+    left_leg.reset_angle(0)
     #atualiza a column_counter
     column_counter = column_counter - 1
-    #Looks for color
-    smell()
 
 def move_double():
     double = choice(POSSIBLE_DOUBLE)
@@ -219,11 +215,9 @@ def update_robot_position():
     matrix_map[1][0] = 'Robot'
 '''
 
-def smell():
+def smell(color):
     
     global POSSIBLE_PLAYS
-
-    color = color_sensor.color()
 
     if(color == Color.BLUE):     #Color Blue detected, Zombie is 2 blocks away
         print(color)
@@ -231,7 +225,7 @@ def smell():
         wait(2000)
     if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
         POSSIBLE_PLAYS.append('ATTACK') # Zombie is 1 block away so the Attack movement is added to de possible plays array
-        print(color) 
+        print('Recon ' + str(color))                                
         ev3.speaker.say('Zombie very close')
         wait(2000)
     
@@ -241,17 +235,21 @@ def shot():
     left_arm_motor.run_time(700,3000)
     return 0
 
+def stun():
+    left_arm_motor.run_time(700,3000)
+    return 0
+
 def random_attack():
     attack = choice(POSSIBLE_ATTACKS)
 
-    if atttack == 'STUN':
+    if attack == 'STUN':
         ev3.speaker.play_file(SoundFile.KUNG_FU)
     elif attack == 'SHOT':
         shot()
     return 0
 
 def recon():
-    if(eyes.distance()>=130 and eyes.distance()<=370):
+    if(eyes.distance() <= 370):
         print('Objeto - 1 casas')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas')
@@ -267,15 +265,15 @@ def random_recon():
         #Robot in column 0 and line 0 (cant recon right or back)
         if(line_counter == 0):
             #recon front
-            print('Front')
+            print('Front:')
             recon()
             #turn left
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
             #recon left
-            print('Left')
+            print('Left:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(130)
 
@@ -283,206 +281,226 @@ def random_recon():
         if(line_counter == 5):
             #turn left
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
             #recon left
-            print('Left')
+            print('Left:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn back
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
             #recon left
-            print('Back')
+            print('Back:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(-260)
-            wait(3000)
+            wait(1500)
 
         #Robot in column 0 but not in line 0 or 5 (cant recon right)
         if(line_counter != 5 and line_counter != 0):
             #recon fornt
-            print('Front')
+            print('Front:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn left
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
             #recon left
-            print('Left')
+            print('Left:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn back
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
             #recon back
-            print('Back')
+            print('Back:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(260)
-            wait(3000)    
+            wait(1500)    
 
     #Robot in column 5 (cant recon left)
     if (column_counter == 5):
         #Robot in column 5 and line 0 (cant recon left or back)
         if (line_counter == 0):
             #recon front
-            print('Front')
+            print('Front:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn right
             robot.turn(130)
-            wait(3000)
+            wait(1500)
             #recon right
-            print('Right')
+            print('Right:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(-130)
-            wait(3000)
+            wait(1500)
 
         #Robot in column 5 and line 5 (cant recon left or front)
         if (line_counter == 5):
             #turn right
             robot.turn(130)
-            wait(3000)
+            wait(1500)
             #recon right
-            print('Right')
+            print('Right:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn back
             robot.turn(130)
-            wait(3000)
+            wait(1500)
             #recon back
-            print('Back')
+            print('Back:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(-260)
-            wait(3000)
+            wait(1500)
             
         #Robot in column 5 and not in line 5 or 0 (cant recon left)
         if(line_counter != 5 and line_counter != 0):
             #recon front
-            print('Front')
+            print('Front:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn right
             robot.turn(130)
-            wait(3000)
+            wait(1500)
             #recon right
-            print('Right')
+            print('Right:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn back
             robot.turn(130)
-            wait(3000)
+            wait(1500)
             #recon back
-            print('Back')
+            print('Back:')
             recon()
-            wait(3000)
+            wait(1500)
             #turn front
             robot.turn(-260)
-            wait(3000)
+            wait(1500)
 
     if (line_counter == 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('Front')
+        print('Front:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn right
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon right
-        print('Right')
+        print('Right:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn left
         robot.turn(-260)
-        wait(3000)
+        wait(1500)
         #recon left
-        print('Left')
+        print('Left:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn front
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         
     if (line_counter == 5 and column_counter != 0 and column_counter != 5):
         #turn right
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon right
-        print('Right')
+        print('Right:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn back
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon back
-        print('Back')
+        print('Back:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn left
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon left
-        print('Left')
+        print('Left:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn front
         robot.turn(130)
-        wait(3000)
+        wait(1500)
+        
     if (line_counter != 5 and line_counter != 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('Front')
+        print('Front:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn right
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon right
-        print('Right')
+        print('Right:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn back
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon back
-        print('Back')
+        print('Back:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn left
         robot.turn(130)
-        wait(3000)
+        wait(1500)
         #recon left
-        print('Left')
+        print('Left:')
         recon()
-        wait(3000)
+        wait(1500)
         #turn front
         robot.turn(130)
-        wait(3000)
+        wait(1500)
 
+def detect_bullet(color):
+    if(color == Color.YELLOW):     #Color yellow detected, bullet
+        print(color)
+        ev3.speaker.say('Bullet found')
+        wait(2000)
+
+def detect_motorcycle_part(color): 
+    if(color == Color.GREEN):     #Color green detected, motorcycle part
+        print(color)
+        ev3.speaker.say('Motorcycle part found')
+        wait(2000)
+        
 # Write your program here.
 while(True):
     if right_shoulder.pressed():
-
-        print('Pressed') # DELETE LATER
+        print(right_leg.angle())
+        print(left_leg.angle())
+        print('Starting play - Right Shoulder pressed') # DELETE LATER
 
         play = choice(POSSIBLE_PLAYS)
 
-        print(play)
+        print('I am going to '+ play)
 
         if play == 'RECON':
-            #does recognizion move
             ev3.speaker.say('DOING RECON')
             random_recon()
         elif play == 'ATTACK':
-            #random_attack()
-            ev3.speaker.play_file('ATTACKING')
+            ev3.speaker.say('ATTACKING')
+            random_attack()
         elif play == 'MOVEMENT':
+            ev3.speaker.say('ON MY WAY')
             random_movement()
-            print(line_counter)
-            print(column_counter)
-            ev3.speaker.play_file('ON MY WAY')
+            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+
+        plays_counter = plays_counter + 1
+        
+        color = color_sensor.color()
+        print(color)
+        smell(color)
+        detect_bullet(color)
+        detect_motorcycle_part(color)
