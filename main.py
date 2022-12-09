@@ -72,8 +72,6 @@ def move_left():
     robot.turn(-128)
     robot.straight(DRIVE_DISTANCE)
     robot.turn(135)
-    #robot.reset_angle(0)
-    #robot.reset_angle(0)
     #atualiza a column_counter
     column_counter = column_counter + 1
 
@@ -82,8 +80,6 @@ def move_right():
     robot.turn(128)
     robot.straight(DRIVE_DISTANCE)
     robot.turn(-135)
-    right_leg.reset_angle(0)
-    left_leg.reset_angle(0)
     #atualiza a column_counter
     column_counter = column_counter - 1
 
