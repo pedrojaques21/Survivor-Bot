@@ -1,4 +1,4 @@
-#!/usr/bin/env pybricks-micropython
+ #!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -29,7 +29,7 @@ robot.settings(190, 100, 190, 100)
 
 #Variables
 DRIVE_DISTANCE = 200
-POSSIBLE_PLAYS = ['RECON', 'MOVEMENT', 'MOVEMENT', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
+POSSIBLE_PLAYS = ['MOVEMENT', 'MOVEMENT', 'ATTACK', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
 POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT','LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
@@ -49,9 +49,31 @@ MAX_COLUMNS = 5
 
 '''
 
+
 line_counter = 0
 column_counter = 0
 plays_counter = 0
+
+
+left_object_1 = False
+left_object_2 = False
+left_object_3 = False
+left_object_4 = False
+
+right_object_1 = False
+right_object_2 = False
+right_object_3 = False
+right_object_4 = False
+
+front_object_1 = False
+front_object_2 = False
+front_object_3 = False
+front_object_4 = False
+
+back_object_1 = False
+back_object_2 = False
+back_object_3 = False
+back_object_4 = False
 
 # Write your program here.
 
@@ -219,6 +241,8 @@ def smell(color):
         print(color)
         ev3.speaker.say('Zombie close')
         wait(2000)
+            
+
     if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
         POSSIBLE_PLAYS.append('ATTACK') # Zombie is 1 block away so the Attack movement is added to de possible plays array
         print('Recon ' + str(color))                                
@@ -240,19 +264,110 @@ def random_attack():
 
     if attack == 'STUN':
         ev3.speaker.play_file(SoundFile.KUNG_FU)
+        stun()
     elif attack == 'SHOT':
         shot()
     return 0
 
-def recon():
+
+def recon_right():
     if(eyes.distance() <= 370):
-        print('Objeto - 1 casas')
+        print('Objeto - 1 casas - Right')
+        right_object_1 == True
+        return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
-        print('Objeto - 2 casas')
+        print('Objeto - 2 casas - Right')
+        right_object_2 == True
+        return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
-        print('Objeto - 3 casas')
+        print('Objeto - 3 casas - Right')
+        right_object_3 == True
+        return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
-        print('Objeto - 4 casas')  
+        print('Objeto - 4 casas - Right')  
+        right_object_4 == True
+        return True
+
+    return False
+
+def recon_left():
+    if(eyes.distance() <= 370):
+        print('Objeto - 1 casas - Left')
+        left_object_1 == True
+        shot()
+        return True
+    if(eyes.distance()>=380 and eyes.distance()<=640):
+        print('Objeto - 2 casas - Left')
+        left_object_2 == True
+        return True
+    if(eyes.distance()>=650 and eyes.distance()<=890):
+        print('Objeto - 3 casas - Left')
+        left_object_3 == True
+        return True
+    if(eyes.distance()>=900 and eyes.distance()<=1060):
+        print('Objeto - 4 casas - Left')  
+        left_object_4 == True
+        return True
+
+    return False
+
+def recon_front():
+    if(eyes.distance() <= 370):
+        print('Objeto - 1 casas - Front')
+        front_object_1 == True
+        return True
+    if(eyes.distance()>=380 and eyes.distance()<=640):
+        print('Objeto - 2 casas - Front')
+        front_object_2 == True
+        return True
+    if(eyes.distance()>=650 and eyes.distance()<=890):
+        print('Objeto - 3 casas - Front')
+        front_object_3 == True
+        return True
+    if(eyes.distance()>=900 and eyes.distance()<=1060):
+        print('Objeto - 4 casas - Front')  
+        front_object_4 == True
+        return True
+
+    return False
+
+def recon_back():
+    if(eyes.distance() <= 370):
+        print('Objeto - 1 casas - Back')
+        back_object_1 == True
+        return True
+    if(eyes.distance()>=380 and eyes.distance()<=640):
+        print('Objeto - 2 casas - Back')
+        back_object_2 == True
+        return True
+    if(eyes.distance()>=650 and eyes.distance()<=890):
+        print('Objeto - 3 casas - Back')
+        back_object_3 == True
+        return True
+    if(eyes.distance()>=900 and eyes.distance()<=1060):
+        print('Objeto - 4 casas - Back')  
+        back_object_4 == True
+        return True
+
+    return False
+
+def verifica_objeto():
+    if (right_object_1 && smell(Color.RED)):
+        robot.turn(125)
+        if (recon_right() == True):
+            shot()
+    if (left_object_1 && smell(Color.RED)):
+        robot.turn(-125)
+        if (recon_left() == True):
+            shot()
+    if (front_object_1):
+        if (recon_front() == True):
+            shot()
+    if (back_object_15):
+        robot.turn(-250)
+        if (recon_back() == True):
+            shot()
+        
 
 def random_recon():
     print(eyes.distance())
@@ -260,15 +375,16 @@ def random_recon():
     if (column_counter == 0):
         #Robot in column 0 and line 0 (cant recon right or back)
         if(line_counter == 0):
+            wait(1500)
             #recon front
-            print('Front:')
-            recon()
+            print('Recon Front:')
+            recon_front()
             #turn left
             robot.turn(-130)
             wait(1500)
             #recon left
-            print('Left:')
-            recon()
+            print('Recon Left:')
+            recon_left()
             wait(1500)
             #turn front
             robot.turn(130)
@@ -279,15 +395,15 @@ def random_recon():
             robot.turn(-130)
             wait(1500)
             #recon left
-            print('Left:')
-            recon()
+            print('Recon Left:')
+            recon_left()
             wait(1500)
             #turn back
             robot.turn(-130)
             wait(1500)
             #recon left
-            print('Back:')
-            recon()
+            print('Recon Back:')
+            recon_back()
             wait(1500)
             #turn front
             robot.turn(-260)
@@ -296,22 +412,22 @@ def random_recon():
         #Robot in column 0 but not in line 0 or 5 (cant recon right)
         if(line_counter != 5 and line_counter != 0):
             #recon fornt
-            print('Front:')
-            recon()
+            print('Recon Front:')
+            recon_front()
             wait(1500)
             #turn left
             robot.turn(-130)
             wait(1500)
             #recon left
-            print('Left:')
-            recon()
+            print('Recon Left:')
+            recon_left()
             wait(1500)
             #turn back
             robot.turn(-130)
             wait(1500)
             #recon back
-            print('Back:')
-            recon()
+            print('Recon Back:')
+            recon_back()
             wait(1500)
             #turn front
             robot.turn(260)
@@ -322,15 +438,15 @@ def random_recon():
         #Robot in column 5 and line 0 (cant recon left or back)
         if (line_counter == 0):
             #recon front
-            print('Front:')
-            recon()
+            print('Recon Front:')
+            recon_front()
             wait(1500)
             #turn right
             robot.turn(130)
             wait(1500)
             #recon right
-            print('Right:')
-            recon()
+            print('Recon Right:')
+            recon_right()
             wait(1500)
             #turn front
             robot.turn(-130)
@@ -342,15 +458,15 @@ def random_recon():
             robot.turn(130)
             wait(1500)
             #recon right
-            print('Right:')
-            recon()
+            print('Recon Right:')
+            recon_right()
             wait(1500)
             #turn back
             robot.turn(130)
             wait(1500)
             #recon back
-            print('Back:')
-            recon()
+            print('Recon Back:')
+            recon_back()
             wait(1500)
             #turn front
             robot.turn(-260)
@@ -359,22 +475,22 @@ def random_recon():
         #Robot in column 5 and not in line 5 or 0 (cant recon left)
         if(line_counter != 5 and line_counter != 0):
             #recon front
-            print('Front:')
-            recon()
+            print('Recon Front:')
+            recon_front()
             wait(1500)
             #turn right
             robot.turn(130)
             wait(1500)
             #recon right
-            print('Right:')
-            recon()
+            print('Recon Right:')
+            recon_right()
             wait(1500)
             #turn back
             robot.turn(130)
             wait(1500)
             #recon back
-            print('Back:')
-            recon()
+            print('Recon Back:')
+            recon_back()
             wait(1500)
             #turn front
             robot.turn(-260)
@@ -382,22 +498,22 @@ def random_recon():
 
     if (line_counter == 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('Front:')
-        recon()
+        print('Recon Front:')
+        recon_front()
         wait(1500)
         #turn right
         robot.turn(130)
         wait(1500)
         #recon right
-        print('Right:')
-        recon()
+        print('Recon Right:')
+        recon_right()
         wait(1500)
         #turn left
         robot.turn(-260)
         wait(1500)
         #recon left
-        print('Left:')
-        recon()
+        print('Recon Left:')
+        recon_left()
         wait(1500)
         #turn front
         robot.turn(130)
@@ -408,22 +524,22 @@ def random_recon():
         robot.turn(130)
         wait(1500)
         #recon right
-        print('Right:')
-        recon()
+        print('Recon Right:')
+        recon_right()
         wait(1500)
         #turn back
         robot.turn(130)
         wait(1500)
         #recon back
-        print('Back:')
-        recon()
+        print('Recon Back:')
+        recon_back()
         wait(1500)
         #turn left
         robot.turn(130)
         wait(1500)
         #recon left
-        print('Left:')
-        recon()
+        print('Recon Left:')
+        recon_left()
         wait(1500)
         #turn front
         robot.turn(130)
@@ -431,29 +547,29 @@ def random_recon():
         
     if (line_counter != 5 and line_counter != 0 and column_counter != 0 and column_counter != 5):
         #recon front
-        print('Front:')
-        recon()
+        print('Recon Front:')
+        recon_front()
         wait(1500)
         #turn right
         robot.turn(130)
         wait(1500)
         #recon right
-        print('Right:')
-        recon()
+        print('Recon Right:')
+        recon_right()
         wait(1500)
         #turn back
         robot.turn(130)
         wait(1500)
         #recon back
-        print('Back:')
-        recon()
+        print('Recon Back:')
+        recon_back()
         wait(1500)
         #turn left
         robot.turn(130)
         wait(1500)
         #recon left
-        print('Left:')
-        recon()
+        print('Recon Left:')
+        recon_left()
         wait(1500)
         #turn front
         robot.turn(130)
@@ -473,16 +589,32 @@ def detect_motorcycle_part(color):
         
 # Write your program here.
 while(True):
+
+    color = color_sensor.color()
+
+    smell(color)
+    detect_bullet(color)
+    detect_motorcycle_part(color) 
+
     if right_shoulder.pressed():
         print(right_leg.angle())
         print(left_leg.angle())
         print('Starting play - Right Shoulder pressed') # DELETE LATER
+            
+        random_recon()
+        verifica_objeto()
 
         play = choice(POSSIBLE_PLAYS)
 
         print('I am going to '+ play)
 
-        if play == 'RECON':
+        if play == 'MOVEMENT':
+            ev3.speaker.say('ON MY WAY')
+            random_movement()
+            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+            
+        '''
+        if play == 'RECON':     
             ev3.speaker.say('DOING RECON')
             random_recon()
         elif play == 'ATTACK':
@@ -492,11 +624,6 @@ while(True):
             ev3.speaker.say('ON MY WAY')
             random_movement()
             print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
-
+        '''
         plays_counter = plays_counter + 1
         
-        color = color_sensor.color()
-        print(color)
-        smell(color)
-        detect_bullet(color)
-        detect_motorcycle_part(color)
