@@ -1,4 +1,4 @@
- #!/usr/bin/env pybricks-micropython
+#!/usr/bin/env pybricks-micropython
 from pybricks.hubs import EV3Brick
 from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
                                  InfraredSensor, UltrasonicSensor, GyroSensor)
@@ -21,6 +21,7 @@ right_leg = Motor(Port.C)
 color_sensor = ColorSensor(Port.S1)
 #gyro_sensor = GyroSensor(Port.S2)
 right_shoulder = TouchSensor(Port.S3)
+left_shoulder = TouchSensor(Port.S2)
 eyes = UltrasonicSensor(Port.S4)
 
 robot = DriveBase(left_leg, right_leg, 25, 105)
@@ -28,11 +29,13 @@ robot = DriveBase(left_leg, right_leg, 25, 105)
 robot.settings(190, 100, 190, 100)
 
 #Variables
+BACK_DISTANCE = -200
 DRIVE_DISTANCE = 200
-POSSIBLE_PLAYS = ['MOVEMENT', 'MOVEMENT', 'ATTACK', 'MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
+POSSIBLE_PLAYS = ['MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
 POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT','LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
+POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
 
 '''
 matrix_map = [
@@ -51,29 +54,31 @@ MAX_COLUMNS = 5
 
 
 line_counter = 0
-column_counter = 0
+column_counter = 4
+
 plays_counter = 0
+parts_counter = 0
+bullet = 0
 
+left_object_1 = 0
+left_object_2 = 0
+left_object_3 = 0
+left_object_4 = 0
 
-left_object_1 = False
-left_object_2 = False
-left_object_3 = False
-left_object_4 = False
+right_object_1 = 0
+right_object_2 = 0
+right_object_3 = 0
+right_object_4 = 0
 
-right_object_1 = False
-right_object_2 = False
-right_object_3 = False
-right_object_4 = False
+front_object_1 = 0
+front_object_2 = 0
+front_object_3 = 0
+front_object_4 = 0
 
-front_object_1 = False
-front_object_2 = False
-front_object_3 = False
-front_object_4 = False
-
-back_object_1 = False
-back_object_2 = False
-back_object_3 = False
-back_object_4 = False
+back_object_1 = 0
+back_object_2 = 0
+back_object_3 = 0
+back_object_4 = 0
 
 # Write your program here.
 
@@ -233,144 +238,387 @@ def update_robot_position():
     matrix_map[1][0] = 'Robot'
 '''
 
-def smell(color):
-    
-    global POSSIBLE_PLAYS
-
-    if(color == Color.BLUE):     #Color Blue detected, Zombie is 2 blocks away
-        print(color)
-        ev3.speaker.say('Zombie close')
-        wait(2000)
-            
-
-    if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
-        POSSIBLE_PLAYS.append('ATTACK') # Zombie is 1 block away so the Attack movement is added to de possible plays array
-        print('Recon ' + str(color))                                
-        ev3.speaker.say('Zombie very close')
-        wait(2000)
-    
-    return 0
-
 def shot():
     left_arm_motor.run_time(700,3000)
-    return 0
+    bullet = bullet - 1
 
 def stun():
     left_arm_motor.run_time(700,3000)
-    return 0
 
 def random_attack():
-    attack = choice(POSSIBLE_ATTACKS)
 
-    if attack == 'STUN':
-        ev3.speaker.play_file(SoundFile.KUNG_FU)
-        stun()
-    elif attack == 'SHOT':
+    attack = choice(POSSIBLE_ATTACKS)
+    print ('ATTACK: ' + str(attack))
+
+    if attack == 'SHOT' and bullet == 1:
         shot()
-    return 0
+        wait(1500)
+        ev3.speaker.play_file(SoundFile.OUCH)
+
+    elif attack == 'STUN':
+        stun()
+        wait(1500)
+        ev3.speaker.play_file(SoundFile.KUNG_FU)
+
 
 
 def recon_right():
+
+    global right_object_1, right_object_2, right_object_3, right_object_4
+
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Right')
-        right_object_1 == True
+        right_object_1 = 1
         return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Right')
-        right_object_2 == True
+        right_object_2 = 1
         return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Right')
-        right_object_3 == True
+        right_object_3 = 1
         return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Right')  
-        right_object_4 == True
+        right_object_4 = 1
         return True
 
     return False
 
 def recon_left():
+
+    global left_object_1, left_object_2, left_object_3, left_object_4
+
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Left')
-        left_object_1 == True
-        shot()
+        left_object_1 = 1
         return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Left')
-        left_object_2 == True
+        left_object_2 = 1
         return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Left')
-        left_object_3 == True
+        left_object_3 = 1
         return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Left')  
-        left_object_4 == True
+        left_object_4 = 1
         return True
 
     return False
 
 def recon_front():
+
+    global front_object_1, front_object_2, front_object_3, front_object_4
+
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Front')
-        front_object_1 == True
+        front_object_1 = 1
         return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Front')
-        front_object_2 == True
+        front_object_2 = 1
         return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Front')
-        front_object_3 == True
+        front_object_3 = 1
         return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Front')  
-        front_object_4 == True
+        front_object_4 = 1
         return True
 
     return False
 
 def recon_back():
+
+    global back_object_1, back_object_2, back_object_3, back_object_4
+
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Back')
-        back_object_1 == True
+        back_object_1 = 1
         return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Back')
-        back_object_2 == True
+        back_object_2 = 1
         return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Back')
-        back_object_3 == True
+        back_object_3 = 1
         return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Back')  
-        back_object_4 == True
+        back_object_4 = 1
         return True
 
     return False
 
 def verifica_objeto():
-    if (right_object_1 && smell(Color.RED)):
-        robot.turn(125)
-        if (recon_right() == True):
-            shot()
-    if (left_object_1 && smell(Color.RED)):
-        robot.turn(-125)
-        if (recon_left() == True):
-            shot()
-    if (front_object_1):
-        if (recon_front() == True):
-            shot()
-    if (back_object_15):
-        robot.turn(-250)
-        if (recon_back() == True):
-            shot()
+
+    global front_object_1, right_object_1, left_object_1, back_object_1
+    mov = 0 
+
+    color = color_sensor.color()
+
+    if(color == Color.BLUE):     #Color Blue detected, Zombie is 2 blocks away
+        print(color)
+        ev3.speaker.say('Zombie close')
+        wait(2000)
         
+    if (front_object_1 == 1 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 0):
+        color = color_sensor.color()
+        if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+            print('Recon ' + str(color))                                
+            ev3.speaker.say('Zombie very close')
+            wait(2000)
+        
+            random_attack()
+            print("A")
+        else:
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+        mov=1
+
+    if (front_object_1 == 0 and left_object_1 == 1 and back_object_1 == 0 and right_object_1 == 0):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(-125)
+            wait(1000)
+            random_attack()
+            wait(1000)
+            robot.turn(125)
+            print("B")
+        else:
+            robot.turn(-125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(125)
+        mov=1
+
+    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 1 and right_object_1 == 0):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(250)
+            wait(1000)
+            random_attack()
+            wait(1000)
+            robot.turn(-250)
+            print("C")
+        else:
+            robot.turn(250)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(-250)
+        mov=1
+    
+    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(125)
+            wait(1000)
+            random_attack()
+            wait(1000)
+            robot.turn(-125)
+            print("D")
+        else:
+            robot.turn(125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(-125)
+        mov=1
+
+    if (front_object_1 == 1 and right_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("E")
+        else:
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+        mov=1
+        
+    if (front_object_1 == 1 and left_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("F")
+        else:
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+        mov=1
+
+    if (front_object_1 == 1 and back_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("G")
+        else:
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+        mov=1
+            
+    if (right_object_1 == 1 and left_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+                robot.turn(-125)
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("H")
+        else:
+            robot.turn(125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(-125)
+        mov=1
+        
+    if (right_object_1 == 1 and back_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+                robot.turn(-125)
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("I")
+        else:
+            robot.turn(125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(-125)
+        mov=1
+
+    if (left_object_1 == 1 and back_object_1 == 1):
+        color = color_sensor.color()
+        if(color == Color.RED):
+            robot.turn(-125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1500)
+            color = color_sensor.color()
+            if color == color.RED:
+                robot.straight(-DRIVE_DISTANCE/2)
+                wait(1000)
+                random_attack()
+                robot.turn(125)
+            else:
+                detect_motorcycle_part()
+                detect_bullet()
+                wait(1000)
+                robot.straight(DRIVE_DISTANCE/2)
+            print("J")
+        else:
+            robot.turn(-125)
+            robot.straight(DRIVE_DISTANCE/2)
+            wait(1000)
+            detect_motorcycle_part()
+            detect_bullet()
+            wait(1000)
+            robot.straight(DRIVE_DISTANCE/2)
+            robot.turn(125)
+        mov=1
+    
+    if (mov == 0):
+        print('I am going to move')
+        ev3.speaker.say('ON MY WAY')
+        random_movement()
+        print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+
+    front_object_1 = 0
+    right_object_1 = 0
+    left_object_1 = 0
+    back_object_1 = 0
 
 def random_recon():
-    print(eyes.distance())
+    #print(eyes.distance())
     #Robot in column 0 (cant recon right)
     if (column_counter == 0):
         #Robot in column 0 and line 0 (cant recon right or back)
@@ -575,48 +823,65 @@ def random_recon():
         robot.turn(130)
         wait(1500)
 
-def detect_bullet(color):
-    if(color == Color.YELLOW):     #Color yellow detected, bullet
+def detect_bullet():
+
+    color = color_sensor.color()
+
+    if(color == Color.BROWN or color == Color.YELLOW):     #Color detected, bullet
         print(color)
+        bullet = bullet + 1
         ev3.speaker.say('Bullet found')
         wait(2000)
 
-def detect_motorcycle_part(color): 
+def detect_motorcycle_part(): 
+
+    color = color_sensor.color()
+
+    global parts_counter
+
     if(color == Color.GREEN):     #Color green detected, motorcycle part
         print(color)
         ev3.speaker.say('Motorcycle part found')
+        parts_counter = parts_counter + 1
+        print('Parts found: ' + str(parts_counter))
+        ev3.speaker.play_file(SoundFile.CHEERING)
         wait(2000)
+
+
         
 # Write your program here.
 while(True):
 
     color = color_sensor.color()
+    #print(color)
 
-    smell(color)
-    detect_bullet(color)
-    detect_motorcycle_part(color) 
+    #if (parts_counter != 0):
+        #ev3.speaker.play_file(SoundFile.CHEERING)
+        
+    if left_shoulder.pressed():
+        ev3.speaker.play_file(SoundFile.GAME_OVER)
 
     if right_shoulder.pressed():
-        print(right_leg.angle())
-        print(left_leg.angle())
+
         print('Starting play - Right Shoulder pressed') # DELETE LATER
-            
+        if(line_counter==5 and column_counter==5):
+            if(parts_counter == 2):
+                ev3.speaker.say('Motorcycle fixed')
+
         random_recon()
+        detect_bullet()
+        detect_motorcycle_part()
         verifica_objeto()
 
-        play = choice(POSSIBLE_PLAYS)
+        print(right_object_1)
+        print(left_object_1)
+        print(front_object_1)
+        print(back_object_1)
 
-        print('I am going to '+ play)
+        andou_1_vez = 0
+        fez_recon = 0
 
-        if play == 'MOVEMENT':
-            ev3.speaker.say('ON MY WAY')
-            random_movement()
-            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
-            
-        '''
-        if play == 'RECON':     
-            ev3.speaker.say('DOING RECON')
-            random_recon()
+'''
         elif play == 'ATTACK':
             ev3.speaker.say('ATTACKING')
             random_attack()
@@ -624,6 +889,9 @@ while(True):
             ev3.speaker.say('ON MY WAY')
             random_movement()
             print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+    
+        
+        print('Nº de jogadas: ' + str(plays_counter))
+
         '''
-        plays_counter = plays_counter + 1
         
