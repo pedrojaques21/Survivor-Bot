@@ -53,12 +53,17 @@ MAX_COLUMNS = 5
 '''
 
 
-line_counter = 0
-column_counter = 4
+line_counter = 2
+column_counter = 1
 
 plays_counter = 0
 parts_counter = 0
 bullet = 0
+
+run_front = 0
+run_back = 0
+run_left = 0
+run_right = 0
 
 left_object_1 = 0
 left_object_2 = 0
@@ -112,85 +117,87 @@ def move_right():
 
 def move_double():
     double = choice(POSSIBLE_DOUBLE)
+    global run_front,run_back ,run_left ,run_right
+    print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
 
-    if double == 'FRONT-FRONT':
+    if (double == 'FRONT-FRONT' and run_front == 0):
         #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
         if line_counter < 4:
             move_front()
             move_front()
         else :
             return move_double()
-    elif double == 'FRONT-RIGHT':
+    elif (double == 'FRONT-RIGHT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (line_counter < 5 and column_counter > 0 ):
             move_front()
             move_right()
         else:
             return move_double()
-    elif double == 'FRONT-LEFT':
+    elif (double == 'FRONT-LEFT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (line_counter < 5 and column_counter < 5) :
             move_front()
             move_left()
         else:
             return move_double()
-    elif double == 'BACK-BACK':
+    elif (double == 'BACK-BACK' and run_back == 0):
         #possible movement when line = 2,3,4,5 and column = 0,1,2,3,4,5
         if line_counter > 1:
             move_back()
             move_back()
         else :
             return move_double()
-    elif double == 'BACK-RIGHT':
+    elif (double == 'BACK-RIGHT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
         if (line_counter > 0 and column_counter > 0 ):
             move_back()
             move_right()
         else :
             return move_double()
-    elif double == 'BACK-LEFT':
+    elif (double == 'BACK-LEFT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (line_counter > 0 and column_counter < 5):
             move_back()
             move_left()
         else :
             return move_double()
-    elif double == 'LEFT-LEFT':
+    elif (double == 'LEFT-LEFT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
         if column_counter < 4:
             move_left()
             move_left()
         else :
             return move_double()
-    elif double == 'LEFT-FRONT':
+    elif (double == 'LEFT-FRONT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (line_counter < 5 and column_counter < 5) :
             move_left()
             move_front()
         else : 
             return move_double()
-    elif double == 'LEFT-BACK':
+    elif (double == 'LEFT-BACK' and run_left == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (line_counter > 0 and column_counter < 5) :
             move_left()
             move_back()
         else :
             return move_double()
-    elif double == 'RIGHT-RIGHT':
+    elif (double == 'RIGHT-RIGHT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
         if column_counter > 1:
             move_right()
             move_right()
         else :
             return move_double()
-    elif double == 'RIGHT-FRONT':
+    elif (double == 'RIGHT-FRONT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (line_counter < 5 and column_counter > 0 ): 
             move_right()
             move_front()
         else: 
             return move_double()
-    elif double == 'RIGHT-BACK':
+    elif (double == 'RIGHT-BACK' and run_right == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
         if (line_counter > 0 and column_counter >0 ): 
             move_right()
@@ -200,29 +207,31 @@ def move_double():
 
 def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
+    global run_front,run_back ,run_left ,run_right
+    print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
 
-    if movement == 'FRONT':
+    if (movement == 'FRONT' and run_front == 0):
         if line_counter < 5:
             move_front()
         else:
             print ('Can not go front!')
             return random_movement()
             
-    elif movement == 'BACK':
+    elif (movement == 'BACK' and run_back == 0):
         if line_counter > 0:
             move_back()
         else:
             print ('Can not go back!')
             return random_movement()
         
-    elif movement == 'RIGHT':
+    elif (movement == 'RIGHT' and run_right == 0):
         if column_counter > 0:
             move_right()
         else:
             print ('Can not go right!')
             return random_movement()
         
-    elif movement == 'LEFT':
+    elif (movement == 'LEFT' and run_left == 0):
         if column_counter < 5:
             move_left()
         else:
@@ -249,16 +258,16 @@ def random_attack():
 
     attack = choice(POSSIBLE_ATTACKS)
     print ('ATTACK: ' + str(attack))
-
-    if attack == 'SHOT' and bullet == 1:
-        shot()
-        wait(1500)
-        ev3.speaker.play_file(SoundFile.OUCH)
-
-    elif attack == 'STUN':
-        stun()
-        wait(1500)
-        ev3.speaker.play_file(SoundFile.KUNG_FU)
+        
+    if attack == 'STUN':
+        if(bullet == 1):
+            shot()
+            wait(1500)
+            ev3.speaker.play_file(SoundFile.OUCH)
+        else:
+            stun()
+            wait(1500)
+            ev3.speaker.play_file(SoundFile.KUNG_FU)
 
 
 
@@ -357,7 +366,8 @@ def recon_back():
 def verifica_objeto():
 
     global front_object_1, right_object_1, left_object_1, back_object_1
-    mov = 0 
+    mov = 0
+    global run_front,run_back ,run_left ,run_right
 
     color = color_sensor.color()
 
@@ -366,7 +376,7 @@ def verifica_objeto():
         ev3.speaker.say('Zombie close')
         wait(2000)
         
-    if (front_object_1 == 1 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 0):
+    if (front_object_1 == 1 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 0 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
             print('Recon ' + str(color))                                
@@ -375,6 +385,7 @@ def verifica_objeto():
         
             random_attack()
             print("A")
+            run_front = 1
         else:
             robot.straight(DRIVE_DISTANCE/2)
             wait(1000)
@@ -384,7 +395,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
 
-    if (front_object_1 == 0 and left_object_1 == 1 and back_object_1 == 0 and right_object_1 == 0):
+    if (front_object_1 == 0 and left_object_1 == 1 and back_object_1 == 0 and right_object_1 == 0 and run_left == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(-125)
@@ -393,6 +404,7 @@ def verifica_objeto():
             wait(1000)
             robot.turn(125)
             print("B")
+            run_left = 1
         else:
             robot.turn(-125)
             robot.straight(DRIVE_DISTANCE/2)
@@ -404,7 +416,7 @@ def verifica_objeto():
             robot.turn(125)
         mov=1
 
-    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 1 and right_object_1 == 0):
+    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 1 and right_object_1 == 0 and run_back == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(250)
@@ -413,6 +425,7 @@ def verifica_objeto():
             wait(1000)
             robot.turn(-250)
             print("C")
+            run_back = 1
         else:
             robot.turn(250)
             robot.straight(DRIVE_DISTANCE/2)
@@ -424,7 +437,7 @@ def verifica_objeto():
             robot.turn(-250)
         mov=1
     
-    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 1):
+    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -433,6 +446,7 @@ def verifica_objeto():
             wait(1000)
             robot.turn(-125)
             print("D")
+            run_right = 1
         else:
             robot.turn(125)
             robot.straight(DRIVE_DISTANCE/2)
@@ -444,7 +458,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
 
-    if (front_object_1 == 1 and right_object_1 == 1):
+    if (front_object_1 == 1 and right_object_1 == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -454,6 +468,7 @@ def verifica_objeto():
                 robot.straight(-DRIVE_DISTANCE/2)
                 wait(1000)
                 random_attack()
+                run_front = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
@@ -469,7 +484,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
         
-    if (front_object_1 == 1 and left_object_1 == 1):
+    if (front_object_1 == 1 and left_object_1 == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -479,6 +494,7 @@ def verifica_objeto():
                 robot.straight(-DRIVE_DISTANCE/2)
                 wait(1000)
                 random_attack()
+                run_front = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
@@ -494,7 +510,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
 
-    if (front_object_1 == 1 and back_object_1 == 1):
+    if (front_object_1 == 1 and back_object_1 == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -504,6 +520,7 @@ def verifica_objeto():
                 robot.straight(-DRIVE_DISTANCE/2)
                 wait(1000)
                 random_attack()
+                run_front = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
@@ -519,7 +536,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
             
-    if (right_object_1 == 1 and left_object_1 == 1):
+    if (right_object_1 == 1 and left_object_1 == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -531,11 +548,13 @@ def verifica_objeto():
                 wait(1000)
                 random_attack()
                 robot.turn(-125)
+                run_right = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
                 wait(1000)
                 robot.straight(DRIVE_DISTANCE/2)
+                robot.turn(-125)
             print("H")
         else:
             robot.turn(125)
@@ -548,7 +567,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
         
-    if (right_object_1 == 1 and back_object_1 == 1):
+    if (right_object_1 == 1 and back_object_1 == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -560,11 +579,13 @@ def verifica_objeto():
                 wait(1000)
                 random_attack()
                 robot.turn(-125)
+                run_right = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
                 wait(1000)
                 robot.straight(DRIVE_DISTANCE/2)
+                robot.turn(-125)
             print("I")
         else:
             robot.turn(125)
@@ -577,7 +598,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
 
-    if (left_object_1 == 1 and back_object_1 == 1):
+    if (left_object_1 == 1 and back_object_1 == 1 and run_left == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(-125)
@@ -589,11 +610,13 @@ def verifica_objeto():
                 wait(1000)
                 random_attack()
                 robot.turn(125)
+                run_left = 1
             else:
                 detect_motorcycle_part()
                 detect_bullet()
                 wait(1000)
                 robot.straight(DRIVE_DISTANCE/2)
+                robot.turn(125)
             print("J")
         else:
             robot.turn(-125)
@@ -605,12 +628,22 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
             robot.turn(125)
         mov=1
-    
+
     if (mov == 0):
-        print('I am going to move')
-        ev3.speaker.say('ON MY WAY')
-        random_movement()
-        print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+        if (run_front == 1 or run_left == 1 or run_right == 1 or run_back == 1):
+            print('I am going to move')
+            ev3.speaker.say('ON MY WAY AFTER STUN')
+            random_movement()
+            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+            run_front = 0
+            run_right = 0
+            run_left = 0
+            run_back = 0
+        else:
+            print('I am going to move')
+            ev3.speaker.say('ON MY WAY')
+            random_movement()
+            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
 
     front_object_1 = 0
     right_object_1 = 0
@@ -825,12 +858,14 @@ def random_recon():
 
 def detect_bullet():
 
+    global bullet
     color = color_sensor.color()
 
     if(color == Color.BROWN or color == Color.YELLOW):     #Color detected, bullet
         print(color)
         bullet = bullet + 1
         ev3.speaker.say('Bullet found')
+        print('Bullets: ' + str(bullet))
         wait(2000)
 
 def detect_motorcycle_part(): 
@@ -873,15 +908,14 @@ while(True):
         detect_motorcycle_part()
         verifica_objeto()
 
-        print(right_object_1)
-        print(left_object_1)
-        print(front_object_1)
-        print(back_object_1)
+        print('right: ' + str(right_object_1))
+        print('left: ' + str(left_object_1))
+        print('front: ' + str(front_object_1))
+        print('back: ' + str(back_object_1))
 
-        andou_1_vez = 0
-        fez_recon = 0
-
-'''
+        print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
+        print('Nº de jogadas: ' + str(plays_counter))
+        '''     
         elif play == 'ATTACK':
             ev3.speaker.say('ATTACKING')
             random_attack()
@@ -891,7 +925,7 @@ while(True):
             print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
     
         
-        print('Nº de jogadas: ' + str(plays_counter))
+        
 
         '''
         
