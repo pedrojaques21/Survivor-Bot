@@ -53,8 +53,8 @@ MAX_COLUMNS = 5
 '''
 
 
-line_counter = 2
-column_counter = 1
+line_counter = 0
+column_counter = 0
 
 plays_counter = 0
 parts_counter = 0
