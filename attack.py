@@ -1,6 +1,5 @@
 from header import *
 
-
 def shot():
     left_arm_motor.run_time(700,3000)
     bullet = bullet - 1
