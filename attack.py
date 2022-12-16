@@ -1,7 +1,4 @@
-left_arm_motor = Motor(Port.A)
-
-#Variables
-POSSIBLE_ATTACKS = ['STUN','SHOT'] # SHOT only joins array when bullet is found
+from header import *
 
 
 def shot():

@@ -23,34 +23,6 @@ MAX_COLUMNS = 5
 '''
 
 
-plays_counter = 0
-parts_counter = 0
-bullet = 0
-
-left_object_1 = 0
-left_object_2 = 0
-left_object_3 = 0
-left_object_4 = 0
-
-right_object_1 = 0
-right_object_2 = 0
-right_object_3 = 0
-right_object_4 = 0
-
-front_object_1 = 0
-front_object_2 = 0
-front_object_3 = 0
-front_object_4 = 0
-
-back_object_1 = 0
-back_object_2 = 0
-back_object_3 = 0
-back_object_4 = 0
-
-# Write your program here.
-
-
-
 '''
 def update_robot_position():
     matrix_map[0][0] = 0

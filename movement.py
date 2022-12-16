@@ -1,16 +1,8 @@
-left_leg = Motor(Port.B)
-right_leg = Motor(Port.C)
+from header import *
 
 robot = DriveBase(left_leg, right_leg, 25, 105)
 
 robot.settings(190, 100, 190, 100)
-
-#Variables
-BACK_DISTANCE = -200
-DRIVE_DISTANCE = 200
-POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
-POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT',
-    'LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
 
 
 def move_front():
