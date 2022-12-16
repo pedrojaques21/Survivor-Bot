@@ -10,7 +10,7 @@ def move_front():
     robot.straight(180)
     #atualiza a line_counter
     line_counter = line_counter + 1
-
+    
 def move_back():
     global line_counter
     robot.straight(-180)
