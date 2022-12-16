@@ -1,32 +1,8 @@
 #!/usr/bin/env pybricks-micropython
-from pybricks.hubs import EV3Brick
-from pybricks.ev3devices import (Motor, TouchSensor, ColorSensor,
-                                 InfraredSensor, UltrasonicSensor, GyroSensor)
-from pybricks.parameters import Port, Stop, Direction, Button, Color
-from pybricks.tools import wait, StopWatch, DataLog
-from pybricks.robotics import DriveBase
-from pybricks.media.ev3dev import SoundFile, ImageFile
 
-from urandom import randint, choice
-from array import *
-
-import movement
-import attack
-
-# Create your objects here - initialize objects
-ev3 = EV3Brick()
-
-
-color_sensor = ColorSensor(Port.S1)
-#gyro_sensor = GyroSensor(Port.S2)
-right_shoulder = TouchSensor(Port.S3)
-left_shoulder = TouchSensor(Port.S2)
-eyes = UltrasonicSensor(Port.S4)
-
-robot = DriveBase(left_leg, right_leg, 25, 105)
-
-robot.settings(190, 100, 190, 100)
-
+from header import *
+from movement import *
+from attack import *
 
 POSSIBLE_PLAYS = ['MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
@@ -47,17 +23,9 @@ MAX_COLUMNS = 5
 '''
 
 
-line_counter = 2
-column_counter = 1
-
 plays_counter = 0
 parts_counter = 0
 bullet = 0
-
-run_front = 0
-run_back = 0
-run_left = 0
-run_right = 0
 
 left_object_1 = 0
 left_object_2 = 0
