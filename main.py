@@ -653,6 +653,7 @@ while(True):
 
     if right_shoulder.pressed():
 
+        print('--------------------------------------')
         print('Starting play - Right Shoulder pressed') # DELETE LATER
         if(line_counter == 5 and column_counter == 5):
             if(parts_counter == 2):
@@ -663,7 +664,7 @@ while(True):
         detect_motorcycle_part()
         verifica_objeto()
 
-        print('r: ' + str(right_object_1) + 'l: ' + str(left_object_1) + 'f: ' + str(front_object_1) + 'b: ' + str(back_object_1))
+        print('r:' + str(right_object_1) + ' l:' + str(left_object_1) + ' f:' + str(front_object_1) + ' b:' + str(back_object_1))
 
         print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
         print('Plays made: ' + str(plays_counter))

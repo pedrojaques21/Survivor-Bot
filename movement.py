@@ -36,7 +36,7 @@ def move_right():
 def move_double():
     double = choice(POSSIBLE_DOUBLE)
     global run_front,run_back ,run_left ,run_right
-    print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
+    #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
 
     if (double == 'FRONT-FRONT' and run_front == 0):
         #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
@@ -126,7 +126,7 @@ def move_double():
 def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
     global run_front,run_back ,run_left ,run_right
-    print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
+    #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
 
     if (movement == 'FRONT' and run_front == 0):
         if line_counter < 5:
