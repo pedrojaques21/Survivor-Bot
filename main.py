@@ -654,7 +654,7 @@ while(True):
     if right_shoulder.pressed():
 
         print('Starting play - Right Shoulder pressed') # DELETE LATER
-        if(line_counter==5 and column_counter==5):
+        if(line_counter == 5 and column_counter == 5):
             if(parts_counter == 2):
                 ev3.speaker.say('Motorcycle fixed')
 
@@ -663,13 +663,11 @@ while(True):
         detect_motorcycle_part()
         verifica_objeto()
 
-        print('right: ' + str(right_object_1))
-        print('left: ' + str(left_object_1))
-        print('front: ' + str(front_object_1))
-        print('back: ' + str(back_object_1))
+        print('r: ' + str(right_object_1) + 'l: ' + str(left_object_1) + 'f: ' + str(front_object_1) + 'b: ' + str(back_object_1))
 
         print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
         print('Plays made: ' + str(plays_counter))
+
         '''     
         elif play == 'ATTACK':
             ev3.speaker.say('ATTACKING')
@@ -678,9 +676,6 @@ while(True):
             ev3.speaker.say('ON MY WAY')
             random_movement()
             print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
-    
-        
-        
 
         '''
         
