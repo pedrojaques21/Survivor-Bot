@@ -144,21 +144,17 @@ def recon_front():
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Front')
         front_object_1 = 1
-        return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Front')
         front_object_2 = 1
-        return True
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Front')
         front_object_3 = 1
-        return True
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Front')  
         front_object_4 = 1
-        return True
 
-    return False
+    return 0
 
 def recon_back():
 
@@ -704,13 +700,10 @@ def detect_motorcycle_part():
         print('Parts found: ' + str(parts_counter))
         wait(2000)
 
-
-        
 # Write your program here.
 while(True):
 
     color = color_sensor.color()
-    #print(color)
 
     #if (parts_counter != 0):
         #ev3.speaker.play_file(SoundFile.CHEERING)
