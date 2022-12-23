@@ -27,14 +27,12 @@ DRIVE_DISTANCE = 200
 POSSIBLE_MOVEMENTS = ['FRONT', 'BACK', 'RIGHT', 'LEFT', 'DOUBLE']
 POSSIBLE_DOUBLE = ['FRONT-FRONT','FRONT-RIGHT','FRONT-LEFT','BACK-BACK','BACK-RIGHT','BACK-LEFT','LEFT-LEFT',
     'LEFT-FRONT','LEFT-BACK','RIGHT-RIGHT','RIGHT-FRONT','RIGHT-BACK']
-POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when bullet is found
-
+POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when the bullet is found!
 
 line_counter = 0
 column_counter = 0
 plays_counter = 0
-parts_counter = 0
-bullet = 0
+motorcycle_parts_counter = 0
 
 run_front = 0
 run_back = 0

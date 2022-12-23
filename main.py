@@ -1,8 +1,7 @@
-#!/usr/bin/env pybricks-micropython
-
 from common import *
 from movement import *
 from attack import *
+from smell import *
 
 POSSIBLE_PLAYS = ['MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
@@ -613,32 +612,6 @@ def random_recon():
         wait(1500)
 
 
-def detect_bullet():
-
-    color = color_sensor.color()
-
-    global bullet
-
-    if(color == Color.BROWN or color == Color.YELLOW):     #Color detected, bullet
-        print(color)
-        ev3.speaker.say('Bullet found')
-        bullet = bullet + 1
-        print('Bullets available: ' + str(bullet))
-        wait(2000)
-
-def detect_motorcycle_part(): 
-
-    color = color_sensor.color()
-
-    global parts_counter
-
-    if(color == Color.GREEN):     #Color green detected, motorcycle part
-        print(color)
-        ev3.speaker.say('Motorcycle part found')
-        ev3.speaker.play_file(SoundFile.CHEERING)
-        parts_counter = parts_counter + 1
-        print('Parts found: ' + str(parts_counter))
-        wait(2000)
 
 # Write your program here.
 while(True):
