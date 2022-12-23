@@ -1,6 +1,6 @@
 #!/usr/bin/env pybricks-micropython
 
-from header import *
+from common import *
 from movement import *
 from attack import *
 

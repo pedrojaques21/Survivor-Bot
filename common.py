@@ -11,7 +11,7 @@ from array import *
 
 ev3 = EV3Brick()
 
-left_arm_motor = Motor(Port.A)
+gun = Motor(Port.A)
 left_leg = Motor(Port.B)
 right_leg = Motor(Port.C)
 color_sensor = ColorSensor(Port.S1)

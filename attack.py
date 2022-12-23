@@ -1,12 +1,12 @@
-from header import *
+from common import *
 
 def shot():
-    left_arm_motor.run_time(700,3000)
+    gun.run_time(700,3000)
     bullet = bullet - 1
     print('Bullets available: ' + str(bullet))
 
 def stun():
-    left_arm_motor.run_time(700,3000)
+    gun.run_time(700,3000)
 
 def random_attack():
 
