@@ -1,12 +1,28 @@
+#!/usr/bin/env pybricks-micropython
 from common import *
 from movement import *
 from attack import *
 from smell import *
+from matrix import *
 
 POSSIBLE_PLAYS = ['MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
 POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
 
+
+dynamic_matrix = [
+['x0y0','x0y1','x0y2','x0y3','x0y4','x0y5'],
+['x1y0','x1y1','x1y2','x1y3','x1y4','x1y5'],
+['x2y0','x2y1','x2y2','x2y3','x2y4','x2y5'],
+['x3y0','x3y1','x3y2','x3y3','x3y4','x3y5'],
+['x4y0','x4y1','x4y2','x4y3','x4y4','x4y5'],
+['x5y0','x5y1','x5y2','x5y3','x5y4','x5y5']]
+
 '''
+x0y0 = robot
+x5y0 = zombie
+x0y5 = zombie
+
+
 matrix_map = [
     ['Robot',2,3,4,5,'Zombie'],
     [1,2,3,4,5,6],
@@ -21,13 +37,16 @@ MAX_COLUMNS = 5
 
 '''
 
-
 '''
 def update_robot_position():
     matrix_map[0][0] = 0
     matrix_map[1][0] = 'Robot'
 '''
 
+def update_robot_position (lines,columns):
+    dynamic_matrix[lines][columns] = 'robot'
+
+    #print(str(dynamic_matrix[lines][columns]))
 
 
 def recon_right():
@@ -36,6 +55,7 @@ def recon_right():
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Right')
+        change_dynamic
         right_object_1 = 1
         return True
     if(eyes.distance()>=380 and eyes.distance()<=640):
@@ -632,6 +652,7 @@ while(True):
             if(parts_counter == 2):
                 ev3.speaker.say('Motorcycle fixed')
 
+
         random_recon()
         detect_bullet()
         detect_motorcycle_part()
@@ -639,6 +660,8 @@ while(True):
 
         print('r:' + str(right_object_1) + ' l:' + str(left_object_1) + ' f:' + str(front_object_1) + ' b:' + str(back_object_1))
 
+        update_robot_position(line_counter,column_counter)
+        update_data_matrix (right, 1):
         print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
         print('Plays made: ' + str(plays_counter))
 
