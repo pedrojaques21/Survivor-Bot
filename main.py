@@ -8,8 +8,7 @@ robot = DriveBase(left_leg, right_leg, 25, 105)
 
 robot.settings(190, 100, 190, 100)
 
-POSSIBLE_PLAYS = ['MOVEMENT'] # Attack move only joins possible plays when zombie is dettected
-POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
+
 
 line_counter = 0
 column_counter = 0
@@ -146,7 +145,7 @@ def recon_back():
 
     return False
 
-def verifica_objeto():
+def verify_object():
 
     mov = 0
     global front_object, right_object, left_object, back_object
@@ -423,6 +422,66 @@ def verifica_objeto():
             run_right = 0
             run_left = 0
             run_back = 0
+        elif (front_object == 2 and right_object == 0 and left_object == 0 and back_object == 0):
+            wait(1000)
+            color1 = color_sensor.color()
+            if color1 == color1.BLUE:
+                ev3.speaker.say('CHECKING AREA')
+                move_front()
+                wait(1000)
+                color2 = color_sensor.color()
+                if color2 == color2.RED:
+                    ev3.speaker.say('DIE ZOMBIE')
+                    random_attack()
+            else:
+                move_front()
+                move_front()
+        
+        elif (front_object == 0 and right_object == 2 and left_object == 0 and back_object == 0):
+            wait(1000)
+            color1 = color_sensor.color()
+            if color1 == color1.BLUE:
+                ev3.speaker.say('CHECKING AREA')
+                move_right()
+                wait(1000)
+                color2 = color_sensor.color()
+                if color2 == color2.RED:
+                    ev3.speaker.say('DIE ZOMBIE')
+                    random_attack()
+            else:
+                move_right()
+                move_right()
+
+        elif (front_object == 0 and right_object == 0 and left_object == 2 and back_object == 0):
+            wait(1000)
+            color1 = color_sensor.color()
+            if color1 == color1.BLUE:
+                ev3.speaker.say('CHECKING AREA')
+                move_left()
+                wait(1000)
+                color2 = color_sensor.color()
+                if color2 == color2.RED:
+                    ev3.speaker.say('DIE ZOMBIE')
+                    random_attack()
+            else:
+                move_left()
+                move_left()
+
+        elif (front_object == 0 and right_object == 0 and left_object == 0 and back_object == 2):
+            wait(1000)
+            color1 = color_sensor.color()
+            if color1 == color1.BLUE:
+                ev3.speaker.say('CHECKING AREA')
+                move_back()
+                wait(1000)
+                color2 = color_sensor.color()
+                if color2 == color2.RED:
+                    ev3.speaker.say('DIE ZOMBIE')
+                    random_attack()
+            else:
+                move_back()
+                move_back()
+
 
         elif (front_object == 3):
             print("!! moving one block, because zombie might be nearby !!")
@@ -776,7 +835,7 @@ def move_double():
             return move_double()
     elif (double == 'RIGHT-BACK' and run_right == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (line_counter > 0 and column_counter >0 ): 
+        if (line_counter > 0 and column_counter > +0 ): 
             move_right()
             move_back()
         else:
@@ -786,36 +845,42 @@ def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
     global run_front, run_back, run_left, run_right
     #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
-
-    if (movement == 'FRONT' and run_front == 0):
-        if line_counter < 5:
-            move_front()
-        else:
-            print ('Can not go front!')
-            return random_movement()
+    if (line_counter == 0 and column_counter == 0 and left_object == 0 and front_object == 0):
+        ev3.speaker.say("didnt find nothing moving out")
+        wait(500)
+        move_front()
+        move_left()
+    else:
+        if (movement == 'FRONT' and run_front == 0):
+            if line_counter < 5:
+                move_front()
+            else:
+                #print ('Can not go front!')
+                return random_movement()
+                
+        elif (movement == 'BACK' and run_back == 0):
+            if line_counter > 0:
+                move_back()
+            else:
+                #print ('Can not go back!')
+                return random_movement()
             
-    elif (movement == 'BACK' and run_back == 0):
-        if line_counter > 0:
-            move_back()
-        else:
-            print ('Can not go back!')
-            return random_movement()
-        
-    elif (movement == 'RIGHT' and run_right == 0):
-        if column_counter > 0:
-            move_right()
-        else:
-            print ('Can not go right!')
-            return random_movement()
-        
-    elif (movement == 'LEFT' and run_left == 0):
-        if column_counter < 5:
-            move_left()
-        else:
-            print ('Can not go left!')
-            return random_movement()
-    elif movement == 'DOUBLE':
-        move_double()
+        elif (movement == 'RIGHT' and run_right == 0):
+            if column_counter > 0:
+                move_right()
+            else:
+                #print ('Can not go right!')
+                return random_movement()
+            
+        elif (movement == 'LEFT' and run_left == 0):
+            if column_counter < 5:
+                move_left()
+            else:
+                #print ('Can not go left!')
+                return random_movement()
+        elif movement == 'DOUBLE':
+            move_double()
+
 
 def secure_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
@@ -849,42 +914,10 @@ def secure_movement():
             print ('Can not go left!')
             return secure_movement()
 
-def investiga():
-    movement = choice(POSSIBLE_MOVEMENTS)
-    global front_object, right_object, left_object, back_object
-    #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
-
-    if (movement == 'FRONT' and run_front == 0):
-        if line_counter < 5:
-            move_front()
-        else:
-            print ('Can not go front!')
-            return random_movement()
-            
-    elif (movement == 'BACK' and run_back == 0):
-        if line_counter > 0:
-            move_back()
-        else:
-            print ('Can not go back!')
-            return random_movement()
-        
-    elif (movement == 'RIGHT' and run_right == 0):
-        if column_counter > 0:
-            move_right()
-        else:
-            print ('Can not go right!')
-            return random_movement()
-        
-    elif (movement == 'LEFT' and run_left == 0):
-        if column_counter < 5:
-            move_left()
-        else:
-            print ('Can not go left!')
-            return random_movement()
-
 
 # Write your program here.
-ev3.speaker.say('I have a big dick')
+ev3.speaker.set_volume(100)
+ev3.speaker.say("I'm ready motherfuckers")
 while(True):
 
     color = color_sensor.color()
@@ -896,41 +929,23 @@ while(True):
         ev3.speaker.play_file(SoundFile.GAME_OVER)
 
     if right_shoulder.pressed():
-
+        plays_counter = plays_counter + 1
         print('--------------------------------------')
         print('Starting play - Right Shoulder pressed') # DELETE LATER
         if(line_counter == 5 and column_counter == 5):
             if(parts_counter == 2):
                 ev3.speaker.say('Motorcycle fixed')
 
-
         random_recon()
         detect_bullet()
         detect_motorcycle_part()
-        verifica_objeto()
+        verify_object()
 
+        update_robot_position(line_counter,column_counter) # updates the robot position in the matrix
+        
         print('r:' + str(right_object) + ' l:' + str(left_object) + ' f:' + str(front_object) + ' b:' + str(back_object))
-
-        update_robot_position(line_counter,column_counter)
-        plays_counter = plays_counter + 1
-        print(str(dynamic_matrix[0]) + "\n" + 
-            str(dynamic_matrix[1]) + "\n" + 
-            str(dynamic_matrix[2]) + "\n" + 
-            str(dynamic_matrix[3]) + "\n" +
-            str(dynamic_matrix[4]) + "\n" )
+        print(str(dynamic_matrix[0]) + "\n" + str(dynamic_matrix[1]) + "\n" + str(dynamic_matrix[2]) + "\n" + str(dynamic_matrix[3]) + "\n" + str(dynamic_matrix[4]) + "\n" )
         print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
         print('Plays made: ' + str(plays_counter))
 
-        reset_robot_position(line_counter,column_counter)
-
-        '''     
-        elif play == 'ATTACK':
-            ev3.speaker.say('ATTACKING')
-            random_attack()
-        elif play == 'MOVEMENT':
-            ev3.speaker.say('ON MY WAY')
-            random_movement()
-            print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
-
-        '''
-        
+        reset_robot_position(line_counter,column_counter) # resets the robot position in the matrix

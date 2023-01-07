@@ -1,22 +1,21 @@
 from common import *
 
 def shot():
-
-    global POSSIBLE_ATTACKS
+    ev3.speaker.play_file("gun_shot.wav")
     gun.run_time(700,3000)
-    POSSIBLE_ATTACKS.pop(1)
+    return 0
 
 def stun():
-    gun.run_time(700,3000)
+    gun.run_time(700,4000)
 
 def random_attack():
     attack = choice(POSSIBLE_ATTACKS)
     print ('ATTACK: ' + str(attack))
     if attack == 'STUN':
-        stun()
-        wait(1500)
         ev3.speaker.play_file(SoundFile.KUNG_FU)
+        stun()
+        wait(1000)
     else:
+        ev3.speaker.play_file("gun_shot.wav")
         shot()
-        wait(1500)
-        ev3.speaker.play_file(SoundFile.OUCH)
+        wait(1000)
