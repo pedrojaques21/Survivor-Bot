@@ -10,12 +10,12 @@ POSSIBLE_MOVEMENTS_AFTER_STUN = ['']
 
 
 dynamic_matrix = [
-['x0y0','x0y1','x0y2','x0y3','x0y4','x0y5'],
-['x1y0','x1y1','x1y2','x1y3','x1y4','x1y5'],
-['x2y0','x2y1','x2y2','x2y3','x2y4','x2y5'],
-['x3y0','x3y1','x3y2','x3y3','x3y4','x3y5'],
-['x4y0','x4y1','x4y2','x4y3','x4y4','x4y5'],
-['x5y0','x5y1','x5y2','x5y3','x5y4','x5y5']]
+['0','0','0','0','0','0'],
+['0','0','0','0','0','0'],
+['0','0','0','0','0','0'],
+['0','0','0','0','0','0'],
+['0','0','0','0','0','0'],
+['0','0','0','0','0','0']]
 
 '''
 x0y0 = robot
@@ -46,8 +46,8 @@ def update_robot_position():
 def update_robot_position (lines,columns):
     dynamic_matrix[lines][columns] = 'robot'
 
-    #print(str(dynamic_matrix[lines][columns]))
-
+def reset_robot_position (lines, columns):
+    dynamic_matrix[lines][columns] = '0'
 
 def recon_right():
 
@@ -55,21 +55,21 @@ def recon_right():
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Right')
-        change_dynamic
         right_object_1 = 1
-        return True
+        update_data_matrix('right')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Right')
         right_object_2 = 1
-        return True
+        update_data_matrix('right')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Right')
         right_object_3 = 1
-        return True
+        update_data_matrix('right')
+
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Right')  
         right_object_4 = 1
-        return True
+        update_data_matrix('right')
 
     return False
 
@@ -80,19 +80,19 @@ def recon_left():
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Left')
         left_object_1 = 1
-        return True
+        update_data_matrix('left')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Left')
         left_object_2 = 1
-        return True
+        update_data_matrix('left')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Left')
         left_object_3 = 1
-        return True
+        update_data_matrix('left')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Left')  
         left_object_4 = 1
-        return True
+        update_data_matrix('left')
 
     return False
 
@@ -103,16 +103,19 @@ def recon_front():
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Front')
         front_object_1 = 1
+        update_data_matrix('front')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Front')
         front_object_2 = 1
+        update_data_matrix('front')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Front')
         front_object_3 = 1
+        update_data_matrix('front')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Front')  
         front_object_4 = 1
-
+        update_data_matrix('front')
     return 0
 
 def recon_back():
@@ -122,19 +125,19 @@ def recon_back():
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Back')
         back_object_1 = 1
-        return True
+        update_data_matrix('back')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Back')
         back_object_2 = 1
-        return True
+        update_data_matrix('back')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Back')
         back_object_3 = 1
-        return True
+        update_data_matrix('back')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Back')  
         back_object_4 = 1
-        return True
+        update_data_matrix('back')
 
     return False
 
@@ -634,6 +637,7 @@ def random_recon():
 
 
 # Write your program here.
+ev3.speaker.say('Ready')
 while(True):
 
     color = color_sensor.color()
@@ -661,9 +665,11 @@ while(True):
         print('r:' + str(right_object_1) + ' l:' + str(left_object_1) + ' f:' + str(front_object_1) + ' b:' + str(back_object_1))
 
         update_robot_position(line_counter,column_counter)
-        update_data_matrix (right, 1):
+
         print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
         print('Plays made: ' + str(plays_counter))
+
+        reset_robot_position(line_counter,column_counter)
 
         '''     
         elif play == 'ATTACK':

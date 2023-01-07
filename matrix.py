@@ -42,7 +42,7 @@ def update_data_matrix (side):
         if (back_object_4 == 1):
             dynamic_matrix[1][0] = 'object' 
 
-    if (line_counter == 0 && column_counter == 0):
+    if (line_counter == 0 and column_counter == 0):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -63,7 +63,7 @@ def update_data_matrix (side):
             if (left_object_4 == 1):
                 dynamic_matrix[line_counter][4] = 'object' 
 
-    if (line_counter == 1 && column_counter == 0):
+    if (line_counter == 1 and column_counter == 0):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -88,7 +88,7 @@ def update_data_matrix (side):
             if (left_object_4 == 1):
                 dynamic_matrix[line_counter][4] = 'object'
         
-    if (line_counter == 2 && column_counter == 0):
+    if (line_counter == 2 and column_counter == 0):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -113,7 +113,7 @@ def update_data_matrix (side):
             if (left_object_4 == 1):
                 dynamic_matrix[line_counter][4] = 'object'
 
-    if (line_counter == 3 && column_counter == 0):
+    if (line_counter == 3 and column_counter == 0):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -138,7 +138,7 @@ def update_data_matrix (side):
             if (left_object_4 == 1):
                 dynamic_matrix[line_counter][4] = 'object'
 
-    if (line_counter == 4 && column_counter == 0):
+    if (line_counter == 4 and column_counter == 0):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -163,7 +163,7 @@ def update_data_matrix (side):
             if (left_object_4 == 1):
                 dynamic_matrix[line_counter][4] = 'object'
 
-    if (line_counter == 5 && column_counter == 0):
+    if (line_counter == 5 and column_counter == 0):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 
@@ -187,7 +187,7 @@ def update_data_matrix (side):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 && column_counter == 1):
+    if (line_counter == 0 and column_counter == 1):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -214,7 +214,7 @@ def update_data_matrix (side):
 
 
     
-    if (line_counter == 1 && column_counter == 1):
+    if (line_counter == 1 and column_counter == 1):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -243,7 +243,7 @@ def update_data_matrix (side):
             if (right_object_1 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 2 && column_counter == 1):
+    if (line_counter == 2 and column_counter == 1):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -272,7 +272,7 @@ def update_data_matrix (side):
             if (right_object_1 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 3 && column_counter == 1):
+    if (line_counter == 3 and column_counter == 1):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -301,7 +301,7 @@ def update_data_matrix (side):
             if (right_object_1 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 4 && column_counter == 1):
+    if (line_counter == 4 and column_counter == 1):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -330,7 +330,7 @@ def update_data_matrix (side):
             if (right_object_1 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 5 && column_counter == 1):
+    if (line_counter == 5 and column_counter == 1):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 
@@ -358,7 +358,7 @@ def update_data_matrix (side):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 && column_counter == 2):
+    if (line_counter == 0 and column_counter == 2):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -383,7 +383,7 @@ def update_data_matrix (side):
             if (right_object_2 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
     
-    if (line_counter == 1 && column_counter == 2):
+    if (line_counter == 1 and column_counter == 2):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -412,7 +412,7 @@ def update_data_matrix (side):
             if (right_object_2 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 2 && column_counter == 2):
+    if (line_counter == 2 and column_counter == 2):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -441,7 +441,7 @@ def update_data_matrix (side):
             if (right_object_2 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 3 && column_counter == 2):
+    if (line_counter == 3 and column_counter == 2):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -470,7 +470,7 @@ def update_data_matrix (side):
             if (right_object_2 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 4 && column_counter == 2):
+    if (line_counter == 4 and column_counter == 2):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -499,7 +499,7 @@ def update_data_matrix (side):
             if (right_object_2 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 5 && column_counter == 2):
+    if (line_counter == 5 and column_counter == 2):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 
@@ -528,7 +528,7 @@ def update_data_matrix (side):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 && column_counter == 3):
+    if (line_counter == 0 and column_counter == 3):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -554,7 +554,7 @@ def update_data_matrix (side):
                 dynamic_matrix[line_counter][0] = 'object' 
 
 
-    if (line_counter == 1 && column_counter == 3):
+    if (line_counter == 1 and column_counter == 3):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -583,7 +583,7 @@ def update_data_matrix (side):
             if (right_object_3 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 2 && column_counter == 3):
+    if (line_counter == 2 and column_counter == 3):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -612,7 +612,7 @@ def update_data_matrix (side):
             if (right_object_3 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 3 && column_counter == 3):
+    if (line_counter == 3 and column_counter == 3):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -641,7 +641,7 @@ def update_data_matrix (side):
             if (right_object_3 == 1):
                 dynamic_matrix[line_counter][0] = 'object'  
 
-    if (line_counter == 4 && column_counter == 3):
+    if (line_counter == 4 and column_counter == 3):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -670,7 +670,7 @@ def update_data_matrix (side):
             if (right_object_3 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 5 && column_counter == 3):
+    if (line_counter == 5 and column_counter == 3):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 
@@ -698,7 +698,7 @@ def update_data_matrix (side):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 && column_counter == 4):
+    if (line_counter == 0 and column_counter == 4):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -723,7 +723,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][0] = 'object' 
 
-    if (line_counter == 1 && column_counter == 4):
+    if (line_counter == 1 and column_counter == 4):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -752,8 +752,8 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 2 && column_counter == 4):
-                if (side == 'back'):
+    if (line_counter == 2 and column_counter == 4):
+        if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
             if (back_object_2 == 1):
@@ -781,7 +781,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 3 && column_counter == 4):
+    if (line_counter == 3 and column_counter == 4):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -810,7 +810,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][0] = 'object'
 
-    if (line_counter == 4 && column_counter == 4):
+    if (line_counter == 4 and column_counter == 4):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -840,7 +840,7 @@ def update_data_matrix (side):
                 dynamic_matrix[line_counter][0] = 'object' 
 
 
-    if (line_counter == 5 && column_counter == 4):
+    if (line_counter == 5 and column_counter == 4):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 
@@ -868,7 +868,7 @@ def update_data_matrix (side):
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 && column_counter == 5):
+    if (line_counter == 0 and column_counter == 5):
         if (side == 'front'):
             if (front_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
@@ -889,7 +889,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][1] = 'object'  
 
-    if (line_counter == 1 && column_counter == 5):
+    if (line_counter == 1 and column_counter == 5):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[0][column_counter] = 'object' 
@@ -914,8 +914,8 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][1] = 'object' 
 
-    if (line_counter == 2 && column_counter == 5):
-                if (side == 'back'):
+    if (line_counter == 2 and column_counter == 5):
+        if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[1][column_counter] = 'object' 
             if (back_object_2 == 1):
@@ -939,7 +939,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][1] = 'object' 
 
-    if (line_counter == 3 && column_counter == 5):
+    if (line_counter == 3 and column_counter == 5):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[2][column_counter] = 'object' 
@@ -964,7 +964,7 @@ def update_data_matrix (side):
             if (right_object_4 == 1):
                 dynamic_matrix[line_counter][1] = 'object' 
 
-    if (line_counter == 4 && column_counter == 5):
+    if (line_counter == 4 and column_counter == 5):
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[3][column_counter] = 'object' 
@@ -990,7 +990,7 @@ def update_data_matrix (side):
                 dynamic_matrix[line_counter][1] = 'object' 
 
 
-    if (line_counter == 5 && column_counter == 5): 
+    if (line_counter == 5 and column_counter == 5): 
         if (side == 'back'):
             if (back_object_1 == 1):
                 dynamic_matrix[4][column_counter] = 'object' 

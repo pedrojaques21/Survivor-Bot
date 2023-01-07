@@ -8,6 +8,7 @@ from pybricks.robotics import DriveBase
 from pybricks.media.ev3dev import SoundFile, ImageFile
 
 from urandom import randint, choice
+
 from array import *
 
 ev3 = EV3Brick()
