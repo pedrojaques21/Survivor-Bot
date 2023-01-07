@@ -5,7 +5,7 @@ def detect_bullet():
     global POSSIBLE_ATTACKS
     color = color_sensor.color()
     if(color == Color.BROWN or color == Color.YELLOW): # Color detected, BROWN OR YELLOW because of the lightning
-        print("Color detected: " + color)
+        print("Color detected: " + str(color))
         ev3.speaker.say('Bullet found!')
         POSSIBLE_ATTACKS.append('SHOT')
         wait(2000)
