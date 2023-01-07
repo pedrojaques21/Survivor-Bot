@@ -57,100 +57,100 @@ def reset_robot_position (lines, columns):
 
 def recon_right():
 
-    global right_object_1, right_object_2, right_object_3, right_object_4
+    global right_object
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Right')
-        right_object_1 = 1
+        right_object = 1
         update_data_matrix('right')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Right')
-        right_object_2 = 1
+        right_object = 2
         update_data_matrix('right')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Right')
-        right_object_3 = 1
+        right_object = 3
         update_data_matrix('right')
-
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Right')  
-        right_object_4 = 1
+        right_object = 4
         update_data_matrix('right')
 
-    return False
+    return 0
 
 def recon_left():
 
-    global left_object_1, left_object_2, left_object_3, left_object_4
+    global left_object
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Left')
-        left_object_1 = 1
+        left_object = 1
         update_data_matrix('left')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Left')
-        left_object_2 = 1
+        left_object = 2
         update_data_matrix('left')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Left')
-        left_object_3 = 1
+        left_object = 3
         update_data_matrix('left')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Left')  
-        left_object_4 = 1
+        left_object = 4
         update_data_matrix('left')
 
-    return False
+    return 0
 
 def recon_front():
 
-    global front_object_1, front_object_2, front_object_3, front_object_4
+    global front_object
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Front')
-        front_object_1 = 1
+        front_object = 1
         update_data_matrix('front')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Front')
-        front_object_2 = 1
+        front_object = 2
         update_data_matrix('front')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Front')
-        front_object_3 = 1
+        front_object = 3
         update_data_matrix('front')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Front')  
-        front_object_4 = 1
+        front_object = 4
         update_data_matrix('front')
     return 0
 
 def recon_back():
 
-    global back_object_1, back_object_2, back_object_3, back_object_4
+    global back_object
 
     if(eyes.distance() <= 370):
         print('Objeto - 1 casas - Back')
-        back_object_1 = 1
+        back_object = 1
         update_data_matrix('back')
     if(eyes.distance()>=380 and eyes.distance()<=640):
         print('Objeto - 2 casas - Back')
-        back_object_2 = 1
+        back_object = 2
         update_data_matrix('back')
     if(eyes.distance()>=650 and eyes.distance()<=890):
         print('Objeto - 3 casas - Back')
-        back_object_3 = 1
+        back_object = 3
         update_data_matrix('back')
     if(eyes.distance()>=900 and eyes.distance()<=1060):
         print('Objeto - 4 casas - Back')  
-        back_object_4 = 1
+        back_object = 4
         update_data_matrix('back')
 
     return False
 
 def verifica_objeto():
 
-    global front_object_1, right_object_1, left_object_1, back_object_1
     mov = 0
+    global front_object, right_object, left_object, back_object
+
     global run_front,run_back ,run_left ,run_right
 
     color = color_sensor.color()
@@ -160,7 +160,7 @@ def verifica_objeto():
         ev3.speaker.say('Zombie close')
         wait(2000)
         
-    if (front_object_1 == 1 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 0 and run_front == 0):
+    if (front_object == 1 and left_object == 0 and back_object == 0 and right_object == 0 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
             print('Recon ' + str(color))                                
@@ -179,7 +179,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
 
-    if (front_object_1 == 0 and left_object_1 == 1 and back_object_1 == 0 and right_object_1 == 0 and run_left == 0):
+    if (front_object == 0 and left_object == 1 and back_object == 0 and right_object == 0 and run_left == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(-125)
@@ -200,7 +200,7 @@ def verifica_objeto():
             robot.turn(125)
         mov=1
 
-    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 1 and right_object_1 == 0 and run_back == 0):
+    if (front_object == 0 and left_object == 0 and back_object == 1 and right_object == 0 and run_back == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(250)
@@ -221,7 +221,7 @@ def verifica_objeto():
             robot.turn(-250)
         mov=1
     
-    if (front_object_1 == 0 and left_object_1 == 0 and back_object_1 == 0 and right_object_1 == 1 and run_right == 0):
+    if (front_object == 0 and left_object == 0 and back_object == 0 and right_object == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -242,7 +242,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
 
-    if (front_object_1 == 1 and right_object_1 == 1 and run_front == 0):
+    if (front_object == 1 and right_object == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -268,7 +268,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
         
-    if (front_object_1 == 1 and left_object_1 == 1 and run_front == 0):
+    if (front_object == 1 and left_object == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -294,7 +294,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
 
-    if (front_object_1 == 1 and back_object_1 == 1 and run_front == 0):
+    if (front_object == 1 and back_object == 1 and run_front == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.straight(DRIVE_DISTANCE/2)
@@ -320,7 +320,7 @@ def verifica_objeto():
             robot.straight(DRIVE_DISTANCE/2)
         mov=1
             
-    if (right_object_1 == 1 and left_object_1 == 1 and run_right == 0):
+    if (right_object == 1 and left_object == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -351,7 +351,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
         
-    if (right_object_1 == 1 and back_object_1 == 1 and run_right == 0):
+    if (right_object == 1 and back_object == 1 and run_right == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(125)
@@ -382,7 +382,7 @@ def verifica_objeto():
             robot.turn(-125)
         mov=1
 
-    if (left_object_1 == 1 and back_object_1 == 1 and run_left == 0):
+    if (left_object == 1 and back_object == 1 and run_left == 0):
         color = color_sensor.color()
         if(color == Color.RED):
             robot.turn(-125)
@@ -423,16 +423,39 @@ def verifica_objeto():
             run_right = 0
             run_left = 0
             run_back = 0
+
+        elif (front_object == 3):
+            print("!! moving one block, because zombie might be nearby !!")
+            ev3.speaker.say('BE CAREFUL')
+            move_front()
+
+        elif (back_object == 3):
+            print("!! moving one block, because zombie might be nearby !!")
+            ev3.speaker.say('BE CAREFUL')
+            move_back()
+
+        elif (left_object == 3):
+            print("!! moving one block, because zombie might be nearby !!")
+            ev3.speaker.say('BE CAREFUL')
+            move_left()
+
+        elif (right_object == 3):
+            print("!! moving one block, because zombie might be nearby !!")
+            ev3.speaker.say('BE CAREFUL')
+            move_right()
         else:
             print('I am going to move')
             ev3.speaker.say('ON MY WAY')
             random_movement()
             print('My position is: ' + str(line_counter) + ', ' + str(column_counter))
 
-    front_object_1 = 0
-    right_object_1 = 0
-    left_object_1 = 0
-    back_object_1 = 0
+    
+
+
+    front_object = 0
+    right_object = 0
+    left_object = 0
+    back_object = 0
 
 def random_recon():
     #print(eyes.distance())
@@ -761,7 +784,7 @@ def move_double():
 
 def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
-    global run_front,run_back ,run_left ,run_right
+    global run_front, run_back, run_left, run_right
     #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
 
     if (movement == 'FRONT' and run_front == 0):
@@ -794,6 +817,70 @@ def random_movement():
     elif movement == 'DOUBLE':
         move_double()
 
+def secure_movement():
+    movement = choice(POSSIBLE_MOVEMENTS)
+    global run_front, run_back, run_left, run_right
+
+    if (movement == 'FRONT' and run_front == 0):
+        if line_counter < 5:
+            move_front()
+        else:
+            print ('Can not go front!')
+            return secure_movement()
+            
+    elif (movement == 'BACK' and run_back == 0):
+        if line_counter > 0:
+            move_back()
+        else:
+            print ('Can not go back!')
+            return secure_movement()
+        
+    elif (movement == 'RIGHT' and run_right == 0):
+        if column_counter > 0:
+            move_right()
+        else:
+            print ('Can not go right!')
+            return secure_movement()
+        
+    elif (movement == 'LEFT' and run_left == 0):
+        if column_counter < 5:
+            move_left()
+        else:
+            print ('Can not go left!')
+            return secure_movement()
+
+def investiga():
+    movement = choice(POSSIBLE_MOVEMENTS)
+    global front_object, right_object, left_object, back_object
+    #print('R' + str(run_right) + ', L ' + str(run_left) + ', B' + str(run_back) + ', F' + str(run_front))
+
+    if (movement == 'FRONT' and run_front == 0):
+        if line_counter < 5:
+            move_front()
+        else:
+            print ('Can not go front!')
+            return random_movement()
+            
+    elif (movement == 'BACK' and run_back == 0):
+        if line_counter > 0:
+            move_back()
+        else:
+            print ('Can not go back!')
+            return random_movement()
+        
+    elif (movement == 'RIGHT' and run_right == 0):
+        if column_counter > 0:
+            move_right()
+        else:
+            print ('Can not go right!')
+            return random_movement()
+        
+    elif (movement == 'LEFT' and run_left == 0):
+        if column_counter < 5:
+            move_left()
+        else:
+            print ('Can not go left!')
+            return random_movement()
 
 
 # Write your program here.
@@ -822,9 +909,10 @@ while(True):
         detect_motorcycle_part()
         verifica_objeto()
 
-        print('r:' + str(right_object_1) + ' l:' + str(left_object_1) + ' f:' + str(front_object_1) + ' b:' + str(back_object_1))
+        print('r:' + str(right_object) + ' l:' + str(left_object) + ' f:' + str(front_object) + ' b:' + str(back_object))
 
         update_robot_position(line_counter,column_counter)
+        plays_counter = plays_counter + 1
         print(str(dynamic_matrix[0]) + "\n" + 
             str(dynamic_matrix[1]) + "\n" + 
             str(dynamic_matrix[2]) + "\n" + 

@@ -41,22 +41,8 @@ run_back = 0
 run_left = 0
 run_right = 0
 
-left_object_1 = 0
-left_object_2 = 0
-left_object_3 = 0
-left_object_4 = 0
+left_object = 0
+right_object = 0
+front_object = 0
+back_object = 0
 
-right_object_1 = 0
-right_object_2 = 0
-right_object_3 = 0
-right_object_4 = 0
-
-front_object_1 = 0
-front_object_2 = 0
-front_object_3 = 0
-front_object_4 = 0
-
-back_object_1 = 0
-back_object_2 = 0
-back_object_3 = 0
-back_object_4 = 0
