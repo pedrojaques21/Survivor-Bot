@@ -25,6 +25,9 @@ left_shoulder = TouchSensor(Port.S2)
 right_shoulder = TouchSensor(Port.S3)
 eyes = UltrasonicSensor(Port.S4)
 
+start = [0,0]
+goal = [5,5]
+
 robot = DriveBase(left_leg, right_leg, 25, 105)
 robot.settings(190, 100, 190, 100)
 
@@ -457,7 +460,7 @@ def verify_object():
         if (run_front == 1 or run_left == 1 or run_right == 1 or run_back == 1):
             print('I am going to move')
             ev3.speaker.say('ON MY WAY AFTER STUN')
-            random_movement()
+            moveTowardsGoal(robot_position,goal)
             run_front = 0
             run_right = 0
             run_left = 0
@@ -610,7 +613,7 @@ def verify_object():
         else:
             print('I am going to move')
             ev3.speaker.say('ON MY WAY')
-            random_movement()
+            moveTowardsGoal(robot_position,goal)
             print('My position is: x=' + str(robot_position[0]) + ', y=' + str(robot_position[1]))
 
     front_object = 0
@@ -829,12 +832,14 @@ def move_front():
     robot.straight(180)
     #atualiza a robot_position[1]
     robot_position[1] = robot_position[1] + 1
+    print ('front')
     
 def move_back():
     global robot_position
     robot.straight(-180)
     #atualiza a robot_position[1]
     robot_position[1] = robot_position[1] - 1
+    print ('back')
 
 def move_left():
     global robot_position
@@ -843,6 +848,7 @@ def move_left():
     robot.turn(135)
     #atualiza a robot_position[0]
     robot_position[0] = robot_position[0] + 1
+    print ('left')
 
 def move_right():
     global robot_position
@@ -851,9 +857,13 @@ def move_right():
     robot.turn(-135)
     #atualiza a robot_position[0]
     robot_position[0] = robot_position[0] - 1
+    print ('right')
 
-def move_double():
-    double = choice(POSSIBLE_DOUBLE)
+def move_double(destino):
+    double = destino
+    if double == 'random':
+        double = choice(POSSIBLE_DOUBLE)
+
     global run_front,run_back ,run_left ,run_right
 
     if (double == 'FRONT-FRONT' and run_front == 0):
@@ -862,84 +872,115 @@ def move_double():
             move_front()
             move_front()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'FRONT-RIGHT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (robot_position[1] < 5 and robot_position[0] > 0 ):
             move_front()
             move_right()
         else:
-            return move_double()
+            return move_double('random')
     elif (double == 'FRONT-LEFT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (robot_position[1] < 5 and robot_position[0] < 5) :
             move_front()
             move_left()
         else:
-            return move_double()
+            return move_double('random')
     elif (double == 'BACK-BACK' and run_back == 0):
         #possible movement when line = 2,3,4,5 and column = 0,1,2,3,4,5
         if robot_position[1] > 1:
             move_back()
             move_back()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'BACK-RIGHT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
         if (robot_position[1] > 0 and robot_position[0] > 0 ):
             move_back()
             move_right()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'BACK-LEFT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (robot_position[1] > 0 and robot_position[0] < 5):
             move_back()
             move_left()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'LEFT-LEFT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
         if robot_position[0] < 4:
             move_left()
             move_left()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'LEFT-FRONT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (robot_position[1] < 5 and robot_position[0] < 5) :
             move_left()
             move_front()
         else : 
-            return move_double()
+            return move_double('random')
     elif (double == 'LEFT-BACK' and run_left == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (robot_position[1] > 0 and robot_position[0] < 5) :
             move_left()
             move_back()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'RIGHT-RIGHT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
         if robot_position[0] > 1:
             move_right()
             move_right()
         else :
-            return move_double()
+            return move_double('random')
     elif (double == 'RIGHT-FRONT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (robot_position[1] < 5 and robot_position[0] > 0 ): 
             move_right()
             move_front()
         else: 
-            return move_double()
+            return move_double('random')
     elif (double == 'RIGHT-BACK' and run_right == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
         if (robot_position[1] > 0 and robot_position[0] > +0 ): 
             move_right()
             move_back()
         else:
-            return move_double()
+            return move_double('random')
+
+
+def moveTowardsGoal(atual,goal):
+    move = [0,0]
+    teste = A_starStep(atual,goal)
+    move[0] = teste[0] - atual[0]
+    move[1] = teste[1] - atual[1]
+    #goal[0] = move[0] - 1
+    #goal[1] = move[1] - 1
+
+    print('TESTE: ' + str(move[0]) +', ' + str(move[1]))
+
+    if(move[0] ==0  and move[1] == 0):
+        move_double('LEFT-FRONT')
+    elif(move[0] == 1 and move[1] == 0):
+        move_front()
+    elif(move[0] == 0 and move[1] == 1):
+        move_left()
+    elif(move[0] == 1 and move[1] == 1):
+        move_double('LEFT-FRONT')
+    elif(move[0] == 2 and move[1] == 0):
+        move_double('FRONT-FRONT')
+    elif(move[0] == -1 and move[1] == 0):
+        move_back()
+    elif(move[0] == 0 and move[1] == -1):
+        move_right()
+    elif(move[0] == -1 and move[1] == -1):
+        move_double('LEFT-BACK')
+    elif(move[0] == -2 and move[1] == 0):
+        move_double('BACK-BACK')
+
 
 def random_movement():
     movement = choice(POSSIBLE_MOVEMENTS)
@@ -978,7 +1019,7 @@ def random_movement():
                 #print ('Can not go left!')
                 return random_movement()
         elif movement == 'DOUBLE':
-            move_double()
+            move_double('random')
 
 
 def secure_movement():
@@ -1035,15 +1076,14 @@ while(True):
             if(parts_counter == 2):
                 ev3.speaker.say('Motorcycle fixed')
 
-        start = [0,0]
-        end = [4,4]
+        
 
-        path = A_starStep(start,end)
+        path = A_starStep(robot_position,goal)
 
-        for cell in path:
-            print(str(cell[0]) + "," + str(cell[1]))
+        print('Path' + str(path))
 
         random_recon()
+        #moveTowardsGoal(robot_position,goal)
         detect_bullet()
         detect_motorcycle_part()
         verify_object()
@@ -1051,8 +1091,11 @@ while(True):
         update_robot_position(robot_position[1],robot_position[0]) # updates the robot position in the matrix
         
         print('r:' + str(right_object) + ' l:' + str(left_object) + ' f:' + str(front_object) + ' b:' + str(back_object))
-        print(str(map[0]) + "\n" + str(map[1]) + "\n" + str(map[2]) + "\n" + str(map[3]) + "\n" + str(map[4]) + "\n" )
+        print(str(map[0]) + "\n" + str(map[1]) + "\n" + str(map[2]) + "\n" + str(map[3]) + "\n" + str(map[4])+"\n" +str(map[4]) +"\n" )
         print('My position is: ' + str(robot_position[0]) + ', ' + str(robot_position[1]))
         print('Plays made: ' + str(plays_counter))
 
         reset_robot_position(robot_position[1],robot_position[0]) # resets the robot position in the matrix
+
+#se encontrar azul, e nao tiver nenhum objeto reconhecido, nao usar a heuristica para andar na diagonal
+# fazer as restricoes para o recon, para nao marcar um objetivo fora da matrix 
