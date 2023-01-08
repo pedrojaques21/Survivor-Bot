@@ -1,3 +1,4 @@
+#!/usr/bin/env pybricks-micropython
 from main import *
 from pybricks.ev3devices import ColorSensor
 from pybricks.parameters import Port, Color
