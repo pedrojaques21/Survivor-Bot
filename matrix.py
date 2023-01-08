@@ -1,972 +1,973 @@
-from common import *
+from main import *
+
 
 def update_data_matrix (side):
 
-    if (line_counter == 0 and column_counter == 0):
+    if (robot_position[0] == 0 and robot_position[1] == 0):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
 
-    if (line_counter == 1 and column_counter == 0):
+    if (robot_position[0] == 1 and robot_position[1] == 0):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
         
-    if (line_counter == 2 and column_counter == 0):
+    if (robot_position[0] == 2 and robot_position[1] == 0):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
 
-    if (line_counter == 3 and column_counter == 0):
+    if (robot_position[0] == 3 and robot_position[1] == 0):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
 
-    if (line_counter == 4 and column_counter == 0):
+    if (robot_position[0] == 4 and robot_position[1] == 0):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
 
-    if (line_counter == 5 and column_counter == 0):
+    if (robot_position[0] == 5 and robot_position[1] == 0):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 and column_counter == 1):
+    if (robot_position[0] == 0 and robot_position[1] == 1):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
 
     
-    if (line_counter == 1 and column_counter == 1):
+    if (robot_position[0] == 1 and robot_position[1] == 1):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 2 and column_counter == 1):
+    if (robot_position[0] == 2 and robot_position[1] == 1):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 3 and column_counter == 1):
+    if (robot_position[0] == 3 and robot_position[1] == 1):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 4 and column_counter == 1):
+    if (robot_position[0] == 4 and robot_position[1] == 1):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 5 and column_counter == 1):
+    if (robot_position[0] == 5 and robot_position[1] == 1):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 4):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 and column_counter == 2):
+    if (robot_position[0] == 0 and robot_position[1] == 2):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
     
-    if (line_counter == 1 and column_counter == 2):
+    if (robot_position[0] == 1 and robot_position[1] == 2):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 2 and column_counter == 2):
+    if (robot_position[0] == 2 and robot_position[1] == 2):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 3 and column_counter == 2):
+    if (robot_position[0] == 3 and robot_position[1] == 2):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
                 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 4 and column_counter == 2):
+    if (robot_position[0] == 4 and robot_position[1] == 2):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 5 and column_counter == 2):
+    if (robot_position[0] == 5 and robot_position[1] == 2):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 3):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][1] = 'object'
+                map[robot_position[0]][1] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][0] = 'object' 
+                map[robot_position[0]][0] = 'object' 
 
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 and column_counter == 3):
+    if (robot_position[0] == 0 and robot_position[1] == 3):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object' 
+                map[robot_position[0]][0] = 'object' 
 
 
-    if (line_counter == 1 and column_counter == 3):
+    if (robot_position[0] == 1 and robot_position[1] == 3):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 2 and column_counter == 3):
+    if (robot_position[0] == 2 and robot_position[1] == 3):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 3 and column_counter == 3):
+    if (robot_position[0] == 3 and robot_position[1] == 3):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object'
+                map[robot_position[0]][5] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object'  
+                map[robot_position[0]][0] = 'object'  
 
-    if (line_counter == 4 and column_counter == 3):
+    if (robot_position[0] == 4 and robot_position[1] == 3):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 5 and column_counter == 3):
+    if (robot_position[0] == 5 and robot_position[1] == 3):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][4] = 'object' 
+                map[robot_position[0]][4] = 'object' 
             if (left_object == 2):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][2] = 'object'
+                map[robot_position[0]][2] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 and column_counter == 4):
+    if (robot_position[0] == 0 and robot_position[1] == 4):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object' 
+                map[robot_position[0]][0] = 'object' 
 
-    if (line_counter == 1 and column_counter == 4):
+    if (robot_position[0] == 1 and robot_position[1] == 4):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 2 and column_counter == 4):
+    if (robot_position[0] == 2 and robot_position[1] == 4):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 3 and column_counter == 4):
+    if (robot_position[0] == 3 and robot_position[1] == 4):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object'
+                map[robot_position[0]][0] = 'object'
 
-    if (line_counter == 4 and column_counter == 4):
+    if (robot_position[0] == 4 and robot_position[1] == 4):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object' 
+                map[robot_position[0]][0] = 'object' 
 
 
-    if (line_counter == 5 and column_counter == 4):
+    if (robot_position[0] == 5 and robot_position[1] == 4):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
         
         if (side == 'left'):
             if (left_object == 1):
-                dynamic_matrix[line_counter][5] = 'object' 
+                map[robot_position[0]][5] = 'object' 
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][3] = 'object'
+                map[robot_position[0]][3] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][2] = 'object' 
+                map[robot_position[0]][2] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][1] = 'object'    
+                map[robot_position[0]][1] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][0] = 'object'   
+                map[robot_position[0]][0] = 'object'   
 
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
     #$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
 
-    if (line_counter == 0 and column_counter == 5):
+    if (robot_position[0] == 0 and robot_position[1] == 5):
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
         
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object'  
+                map[robot_position[0]][1] = 'object'  
 
-    if (line_counter == 1 and column_counter == 5):
+    if (robot_position[0] == 1 and robot_position[1] == 5):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[0][column_counter] = 'object' 
+                map[0][robot_position[1]] = 'object' 
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 4):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
 
-    if (line_counter == 2 and column_counter == 5):
+    if (robot_position[0] == 2 and robot_position[1] == 5):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[1][column_counter] = 'object' 
+                map[1][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 3):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
 
-    if (line_counter == 3 and column_counter == 5):
+    if (robot_position[0] == 3 and robot_position[1] == 5):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[2][column_counter] = 'object' 
+                map[2][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (front_object == 2):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
 
-    if (line_counter == 4 and column_counter == 5):
+    if (robot_position[0] == 4 and robot_position[1] == 5):
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[3][column_counter] = 'object' 
+                map[3][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[0][column_counter] = 'object'
+                map[0][robot_position[1]] = 'object'
 
         if (side == 'front'):
             if (front_object == 1):
-                dynamic_matrix[5][column_counter] = 'object' 
+                map[5][robot_position[1]] = 'object' 
         
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object' 
+                map[robot_position[0]][1] = 'object' 
 
 
-    if (line_counter == 5 and column_counter == 5): 
+    if (robot_position[0] == 5 and robot_position[1] == 5): 
         if (side == 'back'):
             if (back_object == 1):
-                dynamic_matrix[4][column_counter] = 'object' 
+                map[4][robot_position[1]] = 'object' 
             if (back_object == 2):
-                dynamic_matrix[3][column_counter] = 'object'
+                map[3][robot_position[1]] = 'object'
             if (back_object == 3):
-                dynamic_matrix[2][column_counter] = 'object'
+                map[2][robot_position[1]] = 'object'
             if (back_object == 4):
-                dynamic_matrix[1][column_counter] = 'object'
+                map[1][robot_position[1]] = 'object'
 
         if (side == 'right'):
             if (right_object == 1):
-                dynamic_matrix[line_counter][4] = 'object'
+                map[robot_position[0]][4] = 'object'
             if (right_object == 2):
-                dynamic_matrix[line_counter][3] = 'object' 
+                map[robot_position[0]][3] = 'object' 
             if (right_object == 3):
-                dynamic_matrix[line_counter][2] = 'object'    
+                map[robot_position[0]][2] = 'object'    
             if (right_object == 4):
-                dynamic_matrix[line_counter][1] = 'object'      
+                map[robot_position[0]][1] = 'object'      

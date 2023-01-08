@@ -1,12 +1,12 @@
-from common import *
+from main import *
 
 def shot():
-    ev3.speaker.play_file("gun_shot.wav")
     gun.run_time(700,3000)
     return 0
 
 def stun():
     gun.run_time(700,4000)
+    return 0
 
 def random_attack():
     attack = choice(POSSIBLE_ATTACKS)
