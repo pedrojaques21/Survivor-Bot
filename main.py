@@ -424,15 +424,29 @@ def verify_object():
             run_back = 0
         elif (front_object == 2 and right_object == 0 and left_object == 0 and back_object == 0):
             wait(1000)
-            color1 = color_sensor.color()
-            if color1 == color1.BLUE:
+            color = color_sensor.color()
+            if color == color.BLUE:
                 ev3.speaker.say('CHECKING AREA')
                 move_front()
                 wait(1000)
-                color2 = color_sensor.color()
-                if color2 == color2.RED:
-                    ev3.speaker.say('DIE ZOMBIE')
-                    random_attack()
+                color = color_sensor.color()
+                if color == color.RED:
+                    robot.straight(DRIVE_DISTANCE/2)
+                    wait(1000)
+                    color = color_sensor.color()
+                    if color == color.RED:
+                        print("COLOR: RED -> ZOMBIE")
+                        robot.straight(-DRIVE_DISTANCE/2)
+                        wait(1000)
+                        ev3.speaker.say('DIE ZOMBIE')
+                        random_attack()
+                        run_front = 1
+                    else:
+                        print("ZOMBIE IS NOT HERE, IM SAFE")
+                        detect_motorcycle_part()
+                        detect_bullet()
+                        wait(1000)
+                        robot.straight(DRIVE_DISTANCE/2)
             else:
                 move_front()
                 move_front()
@@ -445,9 +459,26 @@ def verify_object():
                 move_right()
                 wait(1000)
                 color2 = color_sensor.color()
-                if color2 == color2.RED:
-                    ev3.speaker.say('DIE ZOMBIE')
-                    random_attack()
+                if color == color.RED:
+                    robot.turn(125)
+                    robot.straight(DRIVE_DISTANCE/2)
+                    wait(1000)
+                    color = color_sensor.color()
+                    if color == color.RED:
+                        print("COLOR: RED -> ZOMBIE")
+                        robot.straight(-DRIVE_DISTANCE/2)
+                        wait(1000)
+                        ev3.speaker.say('DIE ZOMBIE')
+                        random_attack()
+                        robot.turn(-125)
+                        run_right = 1
+                    else:
+                        print("ZOMBIE IS NOT HERE, IM SAFE")
+                        detect_motorcycle_part()
+                        detect_bullet()
+                        wait(1000)
+                        robot.straight(DRIVE_DISTANCE/2)
+                        robot.turn(-125)
             else:
                 move_right()
                 move_right()
@@ -460,9 +491,26 @@ def verify_object():
                 move_left()
                 wait(1000)
                 color2 = color_sensor.color()
-                if color2 == color2.RED:
-                    ev3.speaker.say('DIE ZOMBIE')
-                    random_attack()
+                if color == color.RED:
+                    robot.turn(-125)
+                    robot.straight(DRIVE_DISTANCE/2)
+                    wait(1000)
+                    color = color_sensor.color()
+                    if color == color.RED:
+                        print("COLOR: RED -> ZOMBIE")
+                        robot.straight(-DRIVE_DISTANCE/2)
+                        wait(1000)
+                        ev3.speaker.say('DIE ZOMBIE')
+                        random_attack()
+                        robot.turn(125)
+                        run_left = 1
+                    else:
+                        print("ZOMBIE IS NOT HERE, IM SAFE")
+                        detect_motorcycle_part()
+                        detect_bullet()
+                        wait(1000)
+                        robot.straight(DRIVE_DISTANCE/2)
+                        robot.turn(125)
             else:
                 move_left()
                 move_left()
@@ -475,9 +523,26 @@ def verify_object():
                 move_back()
                 wait(1000)
                 color2 = color_sensor.color()
-                if color2 == color2.RED:
-                    ev3.speaker.say('DIE ZOMBIE')
-                    random_attack()
+                if color == color.RED:
+                    robot.turn(250)
+                    robot.straight(DRIVE_DISTANCE/2)
+                    wait(1000)
+                    color = color_sensor.color()
+                    if color == color.RED:
+                        print("COLOR: RED -> ZOMBIE")
+                        robot.straight(-DRIVE_DISTANCE/2)
+                        wait(1000)
+                        ev3.speaker.say('DIE ZOMBIE')
+                        random_attack()
+                        robot.turn(-250)
+                        run_right = 1
+                    else:
+                        print("ZOMBIE IS NOT HERE, IM SAFE")
+                        detect_motorcycle_part()
+                        detect_bullet()
+                        wait(1000)
+                        robot.straight(DRIVE_DISTANCE/2)
+                        robot.turn(-250)
             else:
                 move_back()
                 move_back()
