@@ -1,8 +1,13 @@
-from common import *
+from main import *
+from pybricks.ev3devices import ColorSensor
+from pybricks.parameters import Port, Color
+
+color_sensor = ColorSensor(Port.S1)
+parts_counter = 0
 
 def detect_bullet():
 
-    global POSSIBLE_ATTACKS
+    global POSSIBLE_ATTACKS, color_sensor
     color = color_sensor.color()
     if(color == Color.BROWN or color == Color.YELLOW): # Color detected, BROWN OR YELLOW because of the lightning
         print("Color detected: " + str(color))
@@ -12,12 +17,12 @@ def detect_bullet():
 
 def detect_motorcycle_part(): 
 
-    global motorcycle_parts_counter
+    global parts_counter
     color = color_sensor.color()
     if(color == Color.GREEN):     #Color green detected, motorcycle part
         print(color)
         ev3.speaker.say('Motorcycle part found!')
         ev3.speaker.play_file(SoundFile.CHEERING)
-        motorcycle_parts_counter = motorcycle_parts_counter + 1
+        parts_counter = parts_counter + 1
         print('Parts found: ' + str(parts_counter))
         wait(2000)
