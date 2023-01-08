@@ -1035,18 +1035,11 @@ while(True):
             if(parts_counter == 2):
                 ev3.speaker.say('Motorcycle fixed')
 
-<<<<<<< HEAD
         start = [0,0]
         end = [4,4]
 
         path = A_starStep(start,end)
 
-=======
-        start = (0,0)
-        end = (4,4)
-
-        path = A_star(map,start,end,5,5)
->>>>>>> 7302fada912a4a5cafba69185b3fb317213e4d09
         for cell in path:
             print(str(cell[0]) + "," + str(cell[1]))
 
