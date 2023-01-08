@@ -1038,7 +1038,7 @@ while(True):
         start = (0,0)
         end = (4,4)
 
-        path = A_star(map,start,end,4,4)
+        path = A_star(map,start,end,5,5)
         for cell in path:
             print(str(cell[0]) + "," + str(cell[1]))
 
