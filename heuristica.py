@@ -8,7 +8,7 @@ def CalculaHeuristica(atual,goal):
 def A_starStep(atual,goal):
     heuristicaAtual = CalculaHeuristica(atual,goal)
     apontador = [0,0]
-    if(atual[0] < goal[0]):#Quer dizer que o objetivo está para cima
+    if(atual[0] <= goal[0]):#Quer dizer que o objetivo está para cima
         for i in range(0,5):
             if(i == 0):
                 apontador[0] = atual[0] + 1
