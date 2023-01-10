@@ -40,7 +40,7 @@ POSSIBLE_ATTACKS = ['STUN'] # SHOT only joins array when the bullet is found!
 
 #   Definição da posição inicial e do objetivo inicial do robot
 goal = [5,5]
-robot_position = [0,0]  # Contém sempre a posição do robot ao longo do jogo
+robot_position = [4,5]  # Contém sempre a posição do robot ao longo do jogo
 
 #   Variaveis
 plays_counter = 0   #   Variavel que contabiliza o número de jogadas do robot até à vitória
@@ -58,6 +58,7 @@ run_left = 0
 run_front = 0
 run_back = 0
 run_right = 0
+bullet = 0
 
 #   Mantem uma matriz visual para saber a posição dos agentes do ambiente
 #   As nossas coordenadas são: x - colunas; y - linhas
@@ -73,9 +74,11 @@ map = [
 def detect_bullet():    #   Função que permite ao robot detectar a bala, lendo a cor da casa onde se encontra
 
     global POSSIBLE_ATTACKS
+    global bullet
     color = color_sensor.color()
     if(color == Color.BROWN or color == Color.YELLOW):  #   Se detectar a cor amarela (ou castanha devido à luminosidade)
         ev3.speaker.say('Bullet found!')                #   Diz que encontrou uma bala
+        bullet = bullet + 1
         POSSIBLE_ATTACKS.append('SHOT')                 #   Adiciona à lista de ataques possiveis a opção tiro
         wait(2000)
 
@@ -106,14 +109,16 @@ def stun():
 
 #   Função que permite efetuar um ataque aleatório; Robot não decide segundo uma regra o ataque a fazer
 def random_attack():
+    global bullet
     attack = choice(POSSIBLE_ATTACKS)   #   Escolhe aleatoriamente uma opção da lista de ataques possiveis
-    if attack == 'STUN':                #   Se for stun, faz um som de stun e executa a função do stun
-        ev3.speaker.play_file(SoundFile.KUNG_FU)
-        stun()
-        wait(1000)
-    else:                               #   Se for shot, faz um som de tiro e executa a função shot
+    if bullet == 1:                #   Se for stun, faz um som de stun e executa a função do stun
         ev3.speaker.play_file("gun_shot.wav")
         shot()
+        bullet = 0
+        wait(1000)
+    else:                               #   Se for shot, faz um som de tiro e executa a função shot
+        ev3.speaker.play_file(SoundFile.KUNG_FU)
+        stun()
         wait(1000)
 
 #   Funções que atualizam a posição do robot na matriz visual interna
@@ -524,14 +529,14 @@ def move(f,r,b,l):
                 else:
                     run_right = 0 #reseta a variavel porque o robot ja pode mover-se para a direita
                     if (robot_position[0] <4):
-                        move_left()
-                        move_left()
+                        move_left() #move-se para a esquerda
+                        move_left() #move-se para a esquerda
                     elif(robot_position[1] <4):
-                        move_front()
-                        move_front()
+                        move_front() #move-se para a frente
+                        move_front() #move-se para a frente
                     elif(robot_position[1] >4):
-                        move_back()
-                        move_back()
+                        move_back() #move-se para atrás
+                        move_back() #move-se para atrás
                 
         if (aux >= 2): #quando o numero de objectos identificados é maior que dois
             calculate_closest_object()
@@ -1172,6 +1177,7 @@ def moveTowardsGoal(atual,objetivo):
 # Ele diz uma mensagem para nos sabermos que ja podemos clicar no ombro do robot
 ev3.speaker.set_volume(100)
 ev3.speaker.say("Ready")
+
 while(True):
 
     #quando o robot apanha uma peca da moto, comeca a dar um alarme

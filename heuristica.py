@@ -1,5 +1,5 @@
 #!/usr/bin/env pybricks-micropython
-from main import *
+#from main import *
 
 def CalculaHeuristica(atual,goal):
     distancia = abs(atual[0] - goal[0]) + abs(atual[1] - goal[1])
