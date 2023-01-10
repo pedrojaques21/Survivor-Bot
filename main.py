@@ -98,7 +98,7 @@ def detect_motorcycle_part():
             parts_counter = parts_counter + 1
             print('Parts found: ' + str(parts_counter))
             wait(2000)
-            goal[5,5]
+            goal = [5,5]
     else:
         ev3.speaker.say('Already have motorcycle part')
 
@@ -334,6 +334,7 @@ def move(f,r,b,l):
                         move_front()
                         move_front()
                 else:
+                    run_front = 0
                     if(robot_position[0] <4):
                         move_left()
                         move_left()
@@ -404,6 +405,7 @@ def move(f,r,b,l):
                         move_left()
                         move_left()
                 else:
+                    run_left = 0
                     if(robot_position[0] >4):
                         move_right()
                         move_right()
@@ -474,6 +476,7 @@ def move(f,r,b,l):
                         move_back()
                         move_back()
                 else:
+                    run_back = 0
                     if(robot_position[0] <4):
                         move_left()
                         move_left()
@@ -543,6 +546,7 @@ def move(f,r,b,l):
                         move_right()
                         move_right()
                 else:
+                    run_right = 0
                     if (robot_position[0] <4):
                         move_left()
                         move_left()
@@ -804,9 +808,6 @@ def calc_heu():
     auxLO = left_object
     auxBO = back_object
     auxRO = right_object
-
-    x = robot_position[0]
-    y = robot_position[1]
     
     if (front_object == 0):
         auxFO = auxFO + 10
@@ -822,13 +823,13 @@ def calc_heu():
 #f,r,b,l
     if (front_object == perto):
         move(front_object,0,0,0)
-
-    elif (right_object == perto):
-        move(0,right_object,0,0)
-
+    
     elif (left_object == perto):
         move(0,0,0,left_object)
 
+    elif (right_object == perto):
+        move(0,right_object,0,0)
+    
     elif (back_object == perto):
         move(0,0,back_object,0)
         
@@ -1189,32 +1190,36 @@ def moveTowardsGoal(atual,objetivo):
     teste = A_starStep(atual,objetivo)
     move[0] = teste[0] - atual[0]
     move[1] = teste[1] - atual[1]
-
-    #print('TESTE: ' + str(teste))
+    print('Star: ' + str(teste))
+    print('TESTE: ' + str(move))
 
     if(move[0] ==0  and move[1] == 0):
         move_double('LEFT-FRONT')
     elif(move[0] == 1 and move[1] == 0):
-        move_front()
-    elif(move[0] == 0 and move[1] == 1):
         move_left()
+    elif(move[0] == 0 and move[1] == 1):
+        move_front()
     elif(move[0] == 1 and move[1] == 1):
         move_double('LEFT-FRONT')
     elif(move[0] == 2 and move[1] == 0):
+        move_double('RIGHT-RIGHT')
+    elif(move[0] == 0 and move[1] == 2):
         move_double('FRONT-FRONT')
     elif(move[0] == -1 and move[1] == 0):
-        move_back()
-    elif(move[0] == 0 and move[1] == -1):
         move_right()
+    elif(move[0] == 0 and move[1] == -1):
+        move_back()
     elif(move[0] == -1 and move[1] == -1):
-        move_double('LEFT-BACK')
+        move_double('RIGHT-BACK')
     elif(move[0] == -2 and move[1] == 0):
+        move_double('LEFT-LEFT')
+    elif(move[0] == 0 and move[1] == -2):
         move_double('BACK-BACK')
 
 
 # Write your program here.
 ev3.speaker.set_volume(100)
-ev3.speaker.say("Merda")
+ev3.speaker.say("Ready")
 while(True):
 
     color = color_sensor.color()
@@ -1231,7 +1236,7 @@ while(True):
         if(robot_position[0] == 5 and robot_position[1] == 5):
             parts_moto = parts_moto + 1
             parts_counter = parts_counter - 1
-            ev3.speaker.say('I PUT A MOTOR PART')
+            ev3.speaker.say('Added motor part in the motorcycle')
             goal = [0,0]
             print('Chegou a moto. Colocou peça')
     if(parts_moto == 2):
@@ -1256,6 +1261,7 @@ while(True):
         print('r:' + str(right_object) + ' l:' + str(left_object) + ' f:' + str(front_object) + ' b:' + str(back_object))
         print(str(map[0]) + "\n" + str(map[1]) + "\n" + str(map[2]) + "\n" + str(map[3]) + "\n" + str(map[4])+"\n" +str(map[4]) +"\n" )
         print('My position is: ' + str(robot_position[0]) + ', ' + str(robot_position[1]))
+        print('My goial is:' + str(goal))
         print('Plays made: ' + str(plays_counter))
 
         reset_robot_position(robot_position[1],robot_position[0]) # resets the robot position in the matrix
