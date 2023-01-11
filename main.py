@@ -262,166 +262,168 @@ def move(f,r,b,l):
                 if(run_front == 0):
                     if(front_object == 1):
                         color = color_sensor.color()
-                        if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+                        if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                             print('Recon ' + str(color))                                
                             ev3.speaker.say('Zombie very close')
-                            wait(2000)
-                            random_attack()
-                            run_front = 1
+                            wait(2000) #espera
+                            random_attack() #realiza um ataque
+                            run_front = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a frente
+
                         else:
-                            move_front()
-                            detect_motorcycle_part()
-                            detect_bullet()
-                            wait(1000)
+                            move_front() #move-se para a frente
+                            detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                            detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                            wait(1000) #espera
                     elif(front_object == 2):
                         color = color_sensor.color()
-                        if(color == Color.BLUE):
-                            wait(1000)
-                            move_front()
+                        if(color == Color.BLUE): #se a cor detetada é azul entao pode estar um zombie por perto
+                            wait(1000) #espera
+                            move_front() #move-se para a frente
                             color = color_sensor.color()
-                            if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+                            if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                                 robot.straight(DRIVE_DISTANCE/2)
                                 color = color_sensor.color()
                                 if(color == Color.RED):
                                     print('Recon ' + str(color))                                
                                     ev3.speaker.say('Zombie very close')
-                                    wait(2000)
-                                    robot.straight(-DRIVE_DISTANCE/2)
-                                    wait(1000)
-                                    random_attack()
-                                    run_front = 1
+                                    wait(2000) #espera
+                                    robot.straight(-DRIVE_DISTANCE/2) #volta para trás, para poder atacar
+                                    wait(1000) #espera
+                                    random_attack() #realiza um ataque
+                                    run_front = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a frente
                                 else:
-                                    wait(1000)
-                                    detect_motorcycle_part()
-                                    detect_bullet()
-                                    wait(1000)
-                                    robot.straight(DRIVE_DISTANCE/2)
+                                    wait(1000) #espera
+                                    detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                                    detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                                    wait(1000) #espera
+                                    robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para completar o movimento
                             else:
                                 robot.straight(DRIVE_DISTANCE/2)
-                                wait(1000)
-                                detect_motorcycle_part()
-                                detect_bullet()
-                                wait(1000)
+                                wait(1000) #espera
+                                detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                                detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                                wait(1000) #espera
                                 robot.straight(DRIVE_DISTANCE/2)
                         else:
                             secure_movement()
                     elif (front_object ==3):
                         secure_movement()
                     else:
-                        move_front()
-                        move_front()
+                        move_front() #move-se para a frente
+                        move_front() #move-se para a frente
                 else:
                     run_front = 0 #reseta a variavel porque o robot ja pode mover-se para a frente
                     if(robot_position[0] <4):
-                        move_left()
-                        move_left()
+                        move_left() #move-se para a esquerda
+                        move_left() #move-se para a esquerda
                     elif(robot_position[0] >4):
-                        move_right()
-                        move_right()
+                        move_right() #move-se para a direita
+                        move_right() #move-se para a direita
                     elif(robot_position[1] >4):
-                        move_back()
-                        move_back()
+                        move_back() #move-se para trás
+                        move_back() #move-se para trás
     #LEFT---------------------------------------------------------------------------------------------
             if(left_object != 0):
                 if(run_left == 0):
                     if(left_object == 1):
                         color = color_sensor.color()
-                        if(color == Color.RED): # Color Red detected, Zombie is 1 blocks away
-                            robot.turn(-128)
+                        if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
+                            robot.turn(-128) #vira -128º, para a esquerda
                             print('Recon ' + str(color))                                
                             ev3.speaker.say('Zombie very close')
-                            wait(2000)
-                            random_attack()
-                            run_left = 1
-                            robot.turn(128)
+                            wait(2000) #espera
+                            random_attack() #realiza um ataque
+                            run_left = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a direita
+                            robot.turn(128) #vira 128º, para a posição inicial, para a frente
                         else:
-                            move_left()
-                            detect_motorcycle_part()
-                            detect_bullet()
-                            wait(1000)
+                            move_left() #move-se para a esquerda
+                            detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                            detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                            wait(1000) #espera
                     elif(left_object == 2):
                         color = color_sensor.color()
-                        if(color == Color.BLUE):
-                            wait(1000)
-                            move_left()
+                        if(color == Color.BLUE): #se a cor detetada é azul entao pode estar um zombie por perto
+                            wait(1000) #espera
+                            move_left() #move-se para a esquerda
                             color = color_sensor.color()
-                            if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
-                                robot.turn(-128)
-                                robot.straight(DRIVE_DISTANCE/2)
+                            if(color == Color.RED):  #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
+                                robot.turn(-128) #vira -128º, para a esquerda
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder verificar a cor
                                 color = color_sensor.color()
-                                if(color == Color.RED):
+                                if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está nessa casa 
                                     print('Recon ' + str(color))                                
                                     ev3.speaker.say('Zombie very close')
-                                    wait(2000)
-                                    robot.straight(-DRIVE_DISTANCE/2)
-                                    wait(1000)
-                                    random_attack()
-                                    run_left = 1
-                                    robot.turn(128)
+                                    wait(2000) #espera
+                                    robot.straight(-DRIVE_DISTANCE/2) #volta para trás, para poder atacar
+                                    wait(1000) #espera
+                                    random_attack() #realiza um ataque
+                                    run_left = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a esquerda
+                                    robot.turn(128) #vira 128º, para a posição inicial, para a frente
                                 else:
-                                    wait(1000)
-                                    detect_motorcycle_part()
-                                    detect_bullet()
-                                    wait(1000)
-                                    robot.straight(DRIVE_DISTANCE/2)
-                                    robot.turn(128)
+                                    wait(1000) #espera
+                                    detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                                    detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                                    wait(1000) #espera
+                                    robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para completar o movimento
+                                    robot.turn(128) #vira 128º, para a posição inicial, para a frente
                             else:
                                 robot.turn(-128)
-                                robot.straight(DRIVE_DISTANCE/2)
-                                wait(1000)
-                                detect_motorcycle_part()
-                                detect_bullet()
-                                wait(1000)
-                                robot.straight(DRIVE_DISTANCE/2)
-                                robot.turn(128)
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder apanhar o objecto
+                                wait(1000) #espera
+                                detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+                                detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
+                                wait(1000) #espera
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
+                                robot.turn(128) #vira 128º, para a posição inicial, para a frente
                         else:
                             secure_movement()
-                    elif (left_object ==3):
-                        secure_movement()
+
+                    elif (left_object ==3): #tem um objecto à esquerda a tres casas de distancia
+                        secure_movement() 
                     else:
-                        move_left()
-                        move_left()
+                        move_left() #move-se para a esquerda
+                        move_left() #move-se para a esquerda
                 else:
                     run_left = 0 #reseta a variavel porque o robot ja pode mover-se para a esquerda
                     if(robot_position[0] >4):
-                        move_right()
-                        move_right()
+                        move_right() #move-se para a direita
+                        move_right() #move-se para a direita
                     elif(robot_position[1] <4):
-                        move_front()
-                        move_front()
+                        move_front() #move-se para a frente
+                        move_front() #move-se para a frente
                     elif(robot_position[1] >4):
-                        move_back()
-                        move_back()
+                        move_back() #move-se para trás
+                        move_back() #move-se para trás
     #BACK-------------------------------------------------------------------------------------------------------
             if(back_object != 0):
                 if(run_back == 0): 
                     if(back_object == 1): #tem um objecto atrás a uma casa de distancia
                         color = color_sensor.color()
-                        if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+                        if(color == Color.RED):  #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                             robot.turn(-180) #vira -180º, para atrás
                             print('Recon ' + str(color))                                
                             ev3.speaker.say('Zombie very close')
                             wait(2000) #espera
                             random_attack() #realiza um ataque
-                            run_back = 1
+                            run_back = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para trás
                             robot.turn(180) #vira 180º, para a posição inicial, para a frente
                         else:
-                            move_back()
+                            move_back() #move-se para trás
                             detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                             detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                             wait(1000) #espera
 
                     elif(back_object == 2): #tem um objecto atrás a duas casas de distancia
                         color = color_sensor.color()
-                        if(color == Color.BLUE):
+                        if(color == Color.BLUE): #se a cor detetada é azul entao pode estar um zombie por perto
                             wait(1000) #espera
                             move_back() #move-se para atrás
                             color = color_sensor.color()
-                            if(color == Color.RED):      # Color Red detected, Zombie is 1 blocks away
+                            if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                                 robot.turn(-180) #vira -180º, para atrás
                                 robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder verificar a cor
                                 color = color_sensor.color()
-                                if(color == Color.RED):
+                                if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está nessa casa 
                                     print('Recon ' + str(color))                                
                                     ev3.speaker.say('Zombie very close')
                                     wait(2000) #espera
@@ -435,7 +437,7 @@ def move(f,r,b,l):
                                     detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                                     detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                                     wait(1000) #espera
-                                    robot.straight(DRIVE_DISTANCE/2)
+                                    robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para completar o movimento
                                     robot.turn(180) #vira 180º, para a posição inicial, para a frente
                             else:
                                 robot.turn(-180)
@@ -508,7 +510,7 @@ def move(f,r,b,l):
                                     detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                                     detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                                     wait(1000) #espera
-                                    robot.straight(DRIVE_DISTANCE/2)
+                                    robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para completar o movimento
                                     robot.turn(-128) #vira -128º, para a posição inicial, para a frente
                             else:
                                 robot.turn(128) #vira 128º, para a direita
@@ -520,7 +522,7 @@ def move(f,r,b,l):
                                 robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
                                 robot.turn(-128) #vira -128º, para a posição inicial, para a frente
                         else:
-                            secure_movement()
+                            secure_movement() 
                     elif (right_object == 3):
                         secure_movement()
                     else:
@@ -539,24 +541,24 @@ def move(f,r,b,l):
                         move_back() #move-se para atrás
                 
         if (aux >= 2): #quando o numero de objectos identificados é maior que dois
-            calculate_closest_object()
+            calculate_closest_object() #calcula o objeto mais perto do robot
         
         elif(aux == 0): #quando o numero de objectos identificados é zero
             color = color_sensor.color()
             if(color == Color.BLUE): #se a cor detetada é azul e
                 if(parts_counter !=0 ): #o robot já apanhou uma peça, entao ele vai fugir
                     if(robot_position[0] <4):
-                        move_left()
-                        move_left()
+                        move_left() #move-se para a esquerda
+                        move_left() #move-se para a esquerda
                     elif(robot_position[0] >4):
-                        move_right()
-                        move_right()
+                        move_right() #move-se para a direita
+                        move_right() #move-se para a direita
                     elif(robot_position[1] <4):
-                        move_front()
-                        move_front()
+                        move_front() #move-se para a frente
+                        move_front() #move-se para a frente
                     elif(robot_position[1] >4):
-                        move_back()
-                        move_back()
+                        move_back() #move-se para trás
+                        move_back() #move-se para trás
                 else:
                     return 0
             else:
@@ -567,71 +569,75 @@ def move(f,r,b,l):
 
     if(parts_counter != 0):
         if (aux == 1): #quando o numero de objectos identificados é um
-            if(front_object == 1):
+            if(front_object == 1): #se a variavel é igual 1, significa que tem um objeto à frente a 1 casa de distancia
                 color = color_sensor.color()
                 if(color == Color.BLUE):
                     if(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[0] >5):
-                        move_right()
+                        move_right() #move-se para a direita
                     elif(robot_position[1] >5):
-                        move_back()
+                        move_back() #move-se para trás
                 elif(color == Color.RED):
                     if(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[0] >5):
-                        move_right()
+                        move_right() #move-se para a direita
                     elif(robot_position[1] >5):
-                        move_back()
-            elif(right_object == 1):
+                        move_back() #move-se para trás
+
+            elif(right_object == 1): #se a variavel é igual 1, significa que tem um objeto à direita a 1 casa de distancia
                 color = color_sensor.color()
                 if(color == Color.BLUE):
                     if(robot_position[0] >5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[1] >5):
-                        move_back()
+                        move_back() #move-se para trás
                 elif(color == Color.RED):
                     if(robot_position[0] >5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[1] >5):
-                        move_back()
-            elif(back_object == 1):
+                        move_back() #move-se para trás
+
+            elif(back_object == 1): #se a variavel é igual 1, significa que tem um objeto atrás a 1 casa de distancia
                 color = color_sensor.color()
                 if(color == Color.BLUE):
                     if(robot_position[1] <5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[0] >5):
-                        move_right()
+                        move_right() #move-se para a direita
                 elif(color == Color.RED):
                     if(robot_position[1] <5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] <5):
-                        move_left()
+                        move_left() #move-se para esquerda
                     elif(robot_position[0] >5):
-                        move_right()
-            elif(left_object == 1):
+                        move_right() #move-se para a direita
+
+            elif(left_object == 1): #se a variavel é igual 1, significa que tem um objeto à esquerda a 1 casa de distancia
                 color = color_sensor.color()
                 if(color == Color.BLUE):
                     if(robot_position[1] <5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] >5):
-                        move_right()
+                        move_right() #move-se para a direita
                     elif(robot_position[1] >5):
-                        move_back()
+                        move_back() #move-se para trás
                 elif(color == Color.RED):
                     if(robot_position[1] <5):
-                        move_front()
+                        move_front() #move-se para frente
                     elif(robot_position[0] >5):
-                        move_right()
+                        move_right() #move-se para a direita
                     elif(robot_position[1] >5):
-                        move_back()
-            else:
+                        move_back() #move-se para trás
+
+            else: #se nao tiver objeto nenhum, ele continua para o seu objetivo [5,5]
                 print('I am going to move')
                 ev3.speaker.say('ON MY WAY') #o robô indica que vai começar o movimento
                 moveTowardsGoal(robot_position,goal) #se não forem realizadas as verificações anteriores o movimento passa a usar a heuristica
