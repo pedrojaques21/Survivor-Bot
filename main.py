@@ -115,23 +115,25 @@ def random_attack():
         ev3.speaker.play_file("gun_shot.wav")
         shot()
         bullet = 0
-        wait(1000)
+        wait(1000) #espera
     else:                               #   Se for shot, faz um som de tiro e executa a função shot
         ev3.speaker.play_file(SoundFile.KUNG_FU)
         stun()
-        wait(1000)
+        wait(1000) #espera
 
-#   Funções que atualizam a posição do robot na matriz visual interna
+#--- funções que atualizam a posição do robot na matriz visual interna -----
 def update_robot_position (lines,columns):
     map[lines][columns] = 'robot'
 
 def reset_robot_position (lines, columns):
     map[lines][columns] = '0'
 
+#--------------------------------------------------------------------------
+#funcao que coloca os objetos reconhecidos na matrix visual interna
 def update_matrix_info(x,y):
     map[y][x]='object'
 
-#   Função que efetua o reconhecimento de objetos para a direita
+#função que efetua o reconhecimento de objetos para a direita
 def recon_right():
     global right_object
     if(eyes.distance() <= 370):
@@ -156,6 +158,7 @@ def recon_right():
             update_matrix_info(robot_position[0]-4, robot_position[1])
     return 0
 
+#funcao de reconhecimento para a esquerda
 def recon_left():
     global left_object
     if(eyes.distance() <= 370):
@@ -180,6 +183,7 @@ def recon_left():
             update_matrix_info(robot_position[0]+4, robot_position[1])
     return 0
 
+#funcao de reconhecimento para a frente
 def recon_front():
     global front_object
     if(eyes.distance() <= 370):
@@ -204,6 +208,7 @@ def recon_front():
             update_matrix_info(robot_position[0], robot_position[1]+4)
     return 0
 
+#funcao de reconhecimento para trás
 def recon_back():
     global back_object
     if(eyes.distance() <= 370):
@@ -228,6 +233,8 @@ def recon_back():
             update_matrix_info(robot_position[0], robot_position[1]-4)
 
     return False
+
+#--------------------------------------------------------------------------
 
 def move(f,r,b,l):
 
@@ -260,7 +267,7 @@ def move(f,r,b,l):
         if (aux == 1):
             if(front_object != 0):
                 if(run_front == 0):
-                    if(front_object == 1):
+                    if(front_object == 1): #tem um objecto à frente a uma casa de distancia
                         color = color_sensor.color()
                         if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                             print('Recon ' + str(color))                                
@@ -274,16 +281,16 @@ def move(f,r,b,l):
                             detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                             detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                             wait(1000) #espera
-                    elif(front_object == 2):
+                    elif(front_object == 2): #tem um objecto à frente a duas casas de distancia
                         color = color_sensor.color()
                         if(color == Color.BLUE): #se a cor detetada é azul entao pode estar um zombie por perto
                             wait(1000) #espera
                             move_front() #move-se para a frente
                             color = color_sensor.color()
                             if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
-                                robot.straight(DRIVE_DISTANCE/2)
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder verificar a cor
                                 color = color_sensor.color()
-                                if(color == Color.RED):
+                                if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está nessa casa 
                                     print('Recon ' + str(color))                                
                                     ev3.speaker.say('Zombie very close')
                                     wait(2000) #espera
@@ -298,16 +305,17 @@ def move(f,r,b,l):
                                     wait(1000) #espera
                                     robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para completar o movimento
                             else:
-                                robot.straight(DRIVE_DISTANCE/2)
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder apanhar o objeto
                                 wait(1000) #espera
                                 detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                                 detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                                 wait(1000) #espera
-                                robot.straight(DRIVE_DISTANCE/2)
+                                robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
                         else:
-                            secure_movement()
-                    elif (front_object ==3):
-                        secure_movement()
+                            secure_movement() #faz movimentos de 1 casa, por segurança
+
+                    elif (front_object ==3): #tem um objecto à frente a tres casas de distancia
+                        secure_movement() #faz movimentos de 1 casa, por segurança
                     else:
                         move_front() #move-se para a frente
                         move_front() #move-se para a frente
@@ -322,10 +330,12 @@ def move(f,r,b,l):
                     elif(robot_position[1] >4):
                         move_back() #move-se para trás
                         move_back() #move-se para trás
+
     #LEFT---------------------------------------------------------------------------------------------
+
             if(left_object != 0):
                 if(run_left == 0):
-                    if(left_object == 1):
+                    if(left_object == 1): #tem um objecto à esquerda a um casa de distancia
                         color = color_sensor.color()
                         if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
                             robot.turn(-128) #vira -128º, para a esquerda
@@ -340,7 +350,8 @@ def move(f,r,b,l):
                             detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                             detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                             wait(1000) #espera
-                    elif(left_object == 2):
+                             
+                    elif(left_object == 2): #tem um objecto à esquerda a duas casas de distancia
                         color = color_sensor.color()
                         if(color == Color.BLUE): #se a cor detetada é azul entao pode estar um zombie por perto
                             wait(1000) #espera
@@ -376,10 +387,10 @@ def move(f,r,b,l):
                                 robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
                                 robot.turn(128) #vira 128º, para a posição inicial, para a frente
                         else:
-                            secure_movement()
+                            secure_movement() #faz movimentos de 1 casa, por segurança
 
                     elif (left_object ==3): #tem um objecto à esquerda a tres casas de distancia
-                        secure_movement() 
+                        secure_movement() #faz movimentos de 1 casa, por segurança 
                     else:
                         move_left() #move-se para a esquerda
                         move_left() #move-se para a esquerda
@@ -394,7 +405,9 @@ def move(f,r,b,l):
                     elif(robot_position[1] >4):
                         move_back() #move-se para trás
                         move_back() #move-se para trás
+
     #BACK-------------------------------------------------------------------------------------------------------
+
             if(back_object != 0):
                 if(run_back == 0): 
                     if(back_object == 1): #tem um objecto atrás a uma casa de distancia
@@ -449,10 +462,10 @@ def move(f,r,b,l):
                                 robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
                                 robot.turn(180) #vira 180º, para a posição inicial, para a frente
                         else:
-                            secure_movement()
+                            secure_movement() #faz movimentos de 1 casa, por segurança
 
                     elif (back_object ==3): #tem um objecto à frente a três casas de distancia
-                        secure_movement()
+                        secure_movement() #faz movimentos de 1 casa, por segurança
                     else:
                         move_back() #move-se para atrás
                         move_back() #move-se para atrás
@@ -469,8 +482,9 @@ def move(f,r,b,l):
                         move_front() #move-se para a frente      
 
     #RIGHT-----------------------------------------------------------------------------------------------------
-            if(right_object != 0):
-                if (run_right == 0):
+
+            if(right_object != 0): 
+                if (run_right == 0): #se a variavel é igual a zero, significa que o robot pode mover-se para qualquer direção
                     if(right_object == 1): #tem um objecto à frente a uma casa de distancia
                         color = color_sensor.color()
                         if(color == Color.RED): #se a cor detetada é vermelha, significa que o zombie está perto, mas o robot nao sabe se é a direita ou em outra posicao
@@ -522,9 +536,10 @@ def move(f,r,b,l):
                                 robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para poder completar o movimento
                                 robot.turn(-128) #vira -128º, para a posição inicial, para a frente
                         else:
-                            secure_movement() 
+                            secure_movement() #faz movimentos de 1 casa, por segurança
+
                     elif (right_object == 3):
-                        secure_movement()
+                        secure_movement() #faz movimentos de 1 casa, por segurança
                     else:
                         move_right() #move-se para a direita
                         move_right() #move-se para a direita
@@ -561,12 +576,14 @@ def move(f,r,b,l):
                         move_back() #move-se para trás
                 else:
                     return 0
-            else:
+
+            else: #se nao detetar cor azul, entao ele continua para o objetivo [5,5]
                 print('I am going to move')
-                ev3.speaker.say('ON MY WAY')
-                moveTowardsGoal(robot_position,goal)
+                ev3.speaker.say('ON MY WAY') #o robô indica que vai começar o movimento
+                moveTowardsGoal(robot_position,goal) #se não forem realizadas as verificações anteriores o movimento passa a usar a heuristica
                 print('My position is: x=' + str(robot_position[0]) + ', y=' + str(robot_position[1]))
 
+    #quando o robot já apanhou uma peça, ele vai agir de forma a dar prioridade a colocar a peça na mota
     if(parts_counter != 0):
         if (aux == 1): #quando o numero de objectos identificados é um
             if(front_object == 1): #se a variavel é igual 1, significa que tem um objeto à frente a 1 casa de distancia
@@ -605,14 +622,14 @@ def move(f,r,b,l):
 
             elif(back_object == 1): #se a variavel é igual 1, significa que tem um objeto atrás a 1 casa de distancia
                 color = color_sensor.color()
-                if(color == Color.BLUE):
+                if(color == Color.BLUE): #se a cor detetada é azul
                     if(robot_position[1] <5):
                         move_front() #move-se para frente
                     elif(robot_position[0] <5):
                         move_left() #move-se para esquerda
                     elif(robot_position[0] >5):
                         move_right() #move-se para a direita
-                elif(color == Color.RED):
+                elif(color == Color.RED): #se a cor detetada é vermelha
                     if(robot_position[1] <5):
                         move_front() #move-se para frente
                     elif(robot_position[0] <5):
@@ -622,14 +639,15 @@ def move(f,r,b,l):
 
             elif(left_object == 1): #se a variavel é igual 1, significa que tem um objeto à esquerda a 1 casa de distancia
                 color = color_sensor.color()
-                if(color == Color.BLUE):
-                    if(robot_position[1] <5):
+                if(color == Color.BLUE): #se a cor detetada é azul
+                    if(robot_position[1] <5): 
                         move_front() #move-se para frente
                     elif(robot_position[0] >5):
                         move_right() #move-se para a direita
                     elif(robot_position[1] >5):
                         move_back() #move-se para trás
-                elif(color == Color.RED):
+
+                elif(color == Color.RED): #se a cor detetada é vermelha
                     if(robot_position[1] <5):
                         move_front() #move-se para frente
                     elif(robot_position[0] >5):
@@ -665,7 +683,8 @@ def move(f,r,b,l):
                             detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
                             wait(1000) #espera
                             robot.straight(DRIVE_DISTANCE/2) #ja apanhou o objeto, agora move-se para completar o movimento 
-                    else:
+
+                    else: #se a cor detetada não é vermelha, o robot sabe que esta seguro
                         robot.straight(DRIVE_DISTANCE/2) #move-se em linha reta 100mm para a frente, metado do movimento
                         wait(1000) #espera
                         detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
@@ -695,8 +714,9 @@ def move(f,r,b,l):
                             wait(1000) #espera
                             robot.straight(DRIVE_DISTANCE/2) #ja apanhou o objeto, agora move-se para completar o movimento 
                             robot.turn(128) #vira 128º, para a posiçao inicial, para a frente
-                    else:
-                        robot.turn(-128)
+
+                    else: #se a cor detetada não é vermelha, o robot sabe que esta seguro
+                        robot.turn(-128) #vira -128º, para a esquerda
                         robot.straight(DRIVE_DISTANCE/2) #move-se em linha reta 100mm para a frente, metado do movimento
                         wait(1000) #espera
                         detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
@@ -727,7 +747,8 @@ def move(f,r,b,l):
                             wait(1000) #espera
                             robot.straight(DRIVE_DISTANCE/2) #ja apanhou o objeto, agora move-se para completar o movimento
                             robot.turn(180) #vira 180º, para a posiçao inicial, para a frente
-                    else:
+
+                    else: #se a cor detetada não é vermelha, o robot sabe que esta seguro
                         robot.turn(-180) #vira -180º, para atras
                         robot.straight(DRIVE_DISTANCE/2) #move-se em linha reta 100mm para a frente, metado do movimento
                         wait(1000) #espera
@@ -760,7 +781,8 @@ def move(f,r,b,l):
                             wait(1000) #espera
                             robot.straight(DRIVE_DISTANCE/2) #ja apanhou o objeto, agora move-se para completar o movimento
                             robot.turn(-128) #vira -128º, para a posiçao inicial, para a frente
-                    else:
+
+                    else: #se a cor detetada não é vermelha, o robot sabe que esta seguro
                         robot.turn(128) #vira 128º, para a direita
                         robot.straight(DRIVE_DISTANCE/2) #move-se 1/2 casa para apanhar o objeto
                         wait(1000) #espera
@@ -770,13 +792,13 @@ def move(f,r,b,l):
                         robot.straight(DRIVE_DISTANCE/2)  #move-se em linha reta 100mm para a frente, para completar o movimento
                         robot.turn(-128) #vira -128º, para a posiçao inicial, para a frente
                     
-            else:
+            else: #se nao detetar cor azul, entao ele continua para o objetivo [5,5]
                 print('I am going to move') #um print para o utilizador saber que o robô vai se movimentar 
                 ev3.speaker.say('ON MY WAY') #o robô indica que vai começar o movimento
                 moveTowardsGoal(robot_position,goal) #se não forem realizadas as verificações anteriores o movimento passa a usar a heuristica
                 print('My position is: x=' + str(robot_position[0]) + ', y=' + str(robot_position[1])) #um print da matrix para saber a posição que o robô acaba o movimento 
 
-        else:
+        else: #quando o numero de objetos identificados é maior que 2, entao ele vai ignorar e vai para o objetivo [5,5]
             print('I am going to move') #um print para o utilizador saber que o robô vai se movimentar
             ev3.speaker.say('ON MY WAY') #o robô indica que vai começar o movimento
             moveTowardsGoal(robot_position,goal) #se não forem realizadas as verificações anteriores o movimento passa a usar a heuristica
@@ -833,27 +855,27 @@ def secure_movement():
     if (front_object >= 2 ):
         print("!! moving one block, because zombie might be nearby !!")
         ev3.speaker.say('BE CAREFUL')
-        move_front()
+        move_front() #move-se para a frente
 
     #se o bloco encontrado esta a mais de 2 blocos de distancia, ele avança 1 casa com cuidado
     elif (back_object >= 2):
         print("!! moving one block, because zombie might be nearby !!")
         ev3.speaker.say('BE CAREFUL')
-        move_back()
+        move_back() #move-se para trás
     
     #se o bloco encontrado esta a mais de 2 blocos de distancia, ele avança 1 casa com cuidado
     elif (left_object >= 2):
         print("!! moving one block, because zombie might be nearby !!")
         ev3.speaker.say('BE CAREFUL')
-        move_left()
+        move_left() #move-se para a esquerda
 
     #se o bloco encontrado esta a mais de 2 blocos de distancia, ele avança 1 casa com cuidado
     elif (right_object >= 2):
         print("!! moving one block, because zombie might be nearby !!")
         ev3.speaker.say('BE CAREFUL')
-        move_right()
+        move_right() #move-se para a direita
 
-
+#funcao que realiza os reconhecimentos, dependendo da posicao do robot na matrix
 def random_recon():
     #robot esta na coluna 0 nao pode fazer reconhecimento para a direita.
     if (robot_position[0] == 0):
@@ -1055,7 +1077,10 @@ def move_right():
 
 #funcao de movimento de 2 casas
 def move_double(destino):
-    double = destino
+
+    #se o destino for double, entao o movimento de 2 casas vai ser escolhido de forma
+    #random no array POSSIBLE_DOUBLE
+    double = destino 
     if double == 'random':
         double = choice(POSSIBLE_DOUBLE)
 
@@ -1064,89 +1089,89 @@ def move_double(destino):
     if (double == 'FRONT-FRONT' and run_front == 0):
         #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
         if robot_position[1] < 4:
-            move_front()
-            move_front()
+            move_front() #move-se para a frente
+            move_front() #move-se para a frente
         else :
             return move_double('random')
     elif (double == 'FRONT-RIGHT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (robot_position[1] < 5 and robot_position[0] > 0 ):
-            move_front()
-            move_right()
+            move_front() #move-se para a frente
+            move_right() #move-se para a direita
         else:
             return move_double('random')
     elif (double == 'FRONT-LEFT' and run_front == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (robot_position[1] < 5 and robot_position[0] < 5) :
-            move_front()
-            move_left()
+            move_front() #move-se para a frente
+            move_left() #move-se para a esquerda
         else:
             return move_double('random')
     elif (double == 'BACK-BACK' and run_back == 0):
         #possible movement when line = 2,3,4,5 and column = 0,1,2,3,4,5
         if robot_position[1] > 1:
-            move_back()
-            move_back()
+            move_back() #move-se para trás
+            move_back() #move-se para trás
         else :
             return move_double('random')
     elif (double == 'BACK-RIGHT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
         if (robot_position[1] > 0 and robot_position[0] > 0 ):
-            move_back()
-            move_right()
+            move_back() #move-se para trás
+            move_right() #move-se para a direita
         else :
             return move_double('random')
     elif (double == 'BACK-LEFT' and run_back == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (robot_position[1] > 0 and robot_position[0] < 5):
-            move_back()
-            move_left()
+            move_back() #move-se para trás
+            move_left() #move-se para a esquerda
         else :
             return move_double('random')
     elif (double == 'LEFT-LEFT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
         if robot_position[0] < 4:
-            move_left()
-            move_left()
+            move_left() #move-se para a esquerda
+            move_left() #move-se para a esquerda
         else :
             return move_double('random')
     elif (double == 'LEFT-FRONT' and run_left == 0):
         #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
         if (robot_position[1] < 5 and robot_position[0] < 5) :
-            move_left()
-            move_front()
+            move_left() #move-se para a esquerda
+            move_front() #move-se para a frente
         else : 
             return move_double('random')
     elif (double == 'LEFT-BACK' and run_left == 0):
         #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
         if (robot_position[1] > 0 and robot_position[0] < 5) :
-            move_left()
-            move_back()
+            move_left() #move-se para a esquerda
+            move_back() #move-se para trás
         else :
             return move_double('random')
     elif (double == 'RIGHT-RIGHT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
         if robot_position[0] > 1:
-            move_right()
-            move_right()
+            move_right() #move-se para a direita
+            move_right() #move-se para a direita
         else :
             return move_double('random')
     elif (double == 'RIGHT-FRONT' and run_right == 0):
         #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
         if (robot_position[1] < 5 and robot_position[0] > 0 ): 
-            move_right()
-            move_front()
+            move_right() #move-se para a direita
+            move_front() #move-se para a frente
         else: 
             return move_double('random')
     elif (double == 'RIGHT-BACK' and run_right == 0):
         #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (robot_position[1] > 0 and robot_position[0] > +0 ): 
-            move_right()
-            move_back()
+        if (robot_position[1] > 0 and robot_position[0] > +0 ):
+            move_right() #move-se para a direita
+            move_back() #move-se para trás
         else:
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
 
-
+#funcao que determina para onde o robot deve-se movimentar para chegar ao objetivo mais rapido.
 def moveTowardsGoal(atual,objetivo):
     move = [0,0]
     teste = A_starStep(atual,objetivo)
@@ -1155,29 +1180,29 @@ def moveTowardsGoal(atual,objetivo):
     print('Star: ' + str(teste))
     print('TESTE: ' + str(move))
 
-    if(move[0] ==0  and move[1] == 0):
-        move_double('LEFT-FRONT')
+    if (move[0] ==0  and move[1] == 0):
+        move_double('LEFT-FRONT') #move-se para a esquerda e para a frente
     elif(move[0] == 1 and move[1] == 0):
-        move_left()
+        move_left() #move-se para a esquerda
     elif(move[0] == 0 and move[1] == 1):
-        move_front()
+        move_front() #move-se para a frente
     elif(move[0] == 1 and move[1] == 1):
-        move_double('LEFT-FRONT')
+        move_double('LEFT-FRONT') #move-se para a esquerda e para a frente
     elif(move[0] == 2 and move[1] == 0):
-        move_double('LEFT-LEFT')
+        move_double('LEFT-LEFT') #move-se para a esquerda e para a esquerda denovo
         
     elif(move[0] == 0 and move[1] == 2):
-        move_double('FRONT-FRONT')
-    elif(move[0] == -1 and move[1] == 0):
-        move_right()
+        move_double('FRONT-FRONT') #move-se para a frente e para a frente denovo
+    elif(move[0] == -1 and move[1] == 0): 
+        move_right() #move-se para a direita
     elif(move[0] == 0 and move[1] == -1):
-        move_back()
+        move_back() #move-se para trás
     elif(move[0] == -1 and move[1] == -1):
-        move_double('RIGHT-BACK')
+        move_double('RIGHT-BACK')  #move-se para a direita e para trás
     elif(move[0] == -2 and move[1] == 0):
-        move_double('RIGHT-RIGHT')
+        move_double('RIGHT-RIGHT') #move-se para a direita e para a direita denovo
     elif(move[0] == 0 and move[1] == -2):
-        move_double('BACK-BACK')
+        move_double('BACK-BACK') #move-se para trás e para trás denovo
 
 
 # Ele diz uma mensagem para nos sabermos que ja podemos clicar no ombro do robot
@@ -1191,9 +1216,9 @@ while(True):
         ev3.speaker.play_file(SoundFile.CHEERING)
 
     #se tiver duas cores na mesma casa    
-    if left_shoulder.pressed():
-        detect_bullet()
-        detect_motorcycle_part()
+    if left_shoulder.pressed(): #se o ombro esquerdo for pressionado
+        detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
+        detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
 
     #esta variavel serve para verificar quantas partes o robot ja apanhou
     if(parts_counter == 1):
@@ -1206,23 +1231,23 @@ while(True):
 
     #se o valor da variavel 'parts_moto' é igual a 2, quer dizer que o robot já apanhou todas as pecas
     # necessarias para ganhar o jogo
-    if(parts_moto == 2):
+    if(parts_moto == 2): 
         if(robot_position[0] == 5 and robot_position[1] == 5):
              ev3.speaker.say('I  WON  THE  GAME')
 
     #se clicarmos no botao no ombro direito o robot começa a sua jogada
     if right_shoulder.pressed():
-        plays_counter = plays_counter + 1
+        plays_counter = plays_counter + 1       #incrementa o numero de jogadas feitas
         print('--------------------------------------')
-        print('Starting play - Right Shoulder pressed') # DELETE LATER
-        if(robot_position[1] == 5 and robot_position[0] == 5):
-            if(parts_counter == 2):
+        print('Starting play - Right Shoulder pressed') 
+        if(robot_position[1] == 5 and robot_position[0] == 5): #se o robot está na posicao [5,5] significa que chegou à mota
+            if(parts_counter == 2): #se o numero de peças encontradas for 2, o jogo acaba porque a moto já esta arranjada
                 ev3.speaker.say('Motorcycle fixed')
 
         random_recon() #faz o reconhecimento aos seus eixos, dependo da posicao do robot na matrix
         detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
         detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
-        move(front_object,right_object,back_object,left_object) 
+        move(front_object,right_object,back_object,left_object) #chama a funcao move() com as variaveis dos lados
 
         update_robot_position(robot_position[1],robot_position[0])  #atualiza a posicao do robot na matrix
         
