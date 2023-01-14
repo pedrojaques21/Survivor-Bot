@@ -1170,10 +1170,10 @@ def move_double(destino):
 
 #funcao que determina para onde o robot deve-se movimentar para chegar ao objetivo mais rapido.
 def moveTowardsGoal(atual,objetivo):
-    move = [0,0]
-    teste = A_starStep(atual,objetivo)
-    move[0] = teste[0] - atual[0]
-    move[1] = teste[1] - atual[1]
+    move = [0,0] #inicializacao da posicao para a qual o robo se ira mover
+    teste = A_starStep(atual,objetivo) #utiliza o algoritmo A* para calcular o melhor trajeto para o objetivo
+    move[0] = teste[0] - atual[0] #subtrai a coordenada x destino da coordenada atual de modo a obter o tipo de movimento que devera executar
+    move[1] = teste[1] - atual[1] #subtrai a coordenada y destino da coordenada atual de modo a obter o tipo de movimento que devera executar
     print('Star: ' + str(teste))
     print('TESTE: ' + str(move))
 
