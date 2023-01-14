@@ -136,123 +136,128 @@ def update_matrix_info(x,y):
 #função que efetua o reconhecimento de objetos para a direita
 def recon_right():
     global right_object
-    if(eyes.distance() <= 370):
-        if(robot_position[0]>=1):
+    if(eyes.distance() <= 370): #se a distancia do objeto for inferior a 370, entao o objeto está a 1 casa de distancia
+        if(robot_position[0]>=1): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 1 casas - Right')
-            right_object = 1
-            update_matrix_info(robot_position[0]-1, robot_position[1])
-    if(eyes.distance()>=380 and eyes.distance()<=640):
-        if(robot_position[0]>=2):
+            right_object = 1  #a variavel fica a 1, pois está um objeto a 1 casa de distancia
+            update_matrix_info(robot_position[0]-1, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=380 and eyes.distance()<=640): #se a distancia do objeto for inferior a 640, entao o objeto está a 2 casas de distancia
+        if(robot_position[0]>=2): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 2 casas - Right')
-            right_object = 2
-            update_matrix_info(robot_position[0]-2, robot_position[1])
-    if(eyes.distance()>=650 and eyes.distance()<=890):
-        if(robot_position[0]>=3):
+            right_object = 2  #a variavel fica a 2, pois está um objeto a 2 casas de distancia
+            update_matrix_info(robot_position[0]-2, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=650 and eyes.distance()<=890): #se a distancia do objeto for inferior a 890, entao o objeto está a 3 casas de distancia
+        if(robot_position[0]>=3): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 3 casas - Right')
-            right_object = 3
-            update_matrix_info(robot_position[0]-3, robot_position[1])
-    if(eyes.distance()>=900 and eyes.distance()<=1060):
-        if(robot_position[0]>=4):
+            right_object = 3  #a variavel fica a 3, pois está um objeto a 3 casas de distancia
+            update_matrix_info(robot_position[0]-3, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=900 and eyes.distance()<=1060): #se a distancia do objeto for inferior a 1060, entao o objeto está a 4 casas de distancia
+        if(robot_position[0]>=4): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 4 casas - Right')  
-            right_object = 4
-            update_matrix_info(robot_position[0]-4, robot_position[1])
+            right_object = 4 #a variavel fica a 4, pois está um objeto a 4 casas de distancia
+            update_matrix_info(robot_position[0]-4, robot_position[1]) #coloca o objeto reconhecido na matrix interna
     return 0
 
 #funcao de reconhecimento para a esquerda
 def recon_left():
     global left_object
-    if(eyes.distance() <= 370):
-        if(robot_position[0]<=4):
+    if(eyes.distance() <= 370): #se a distancia do objeto for inferior a 370, entao o objeto está a 1 casa de distancia
+        if(robot_position[0]<=4): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 1 casas - Left')
-            left_object = 1
-            update_matrix_info(robot_position[0]+1, robot_position[1])
-    if(eyes.distance()>=380 and eyes.distance()<=640):
-        if(robot_position[0]<=3):
+            left_object = 1  #a variavel fica a 1, pois está um objeto a 1 casa de distancia
+            update_matrix_info(robot_position[0]+1, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=380 and eyes.distance()<=640): #se a distancia do objeto for inferior a 640, entao o objeto está a 2 casas de distancia
+        if(robot_position[0]<=3): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 2 casas - Left')
-            left_object = 2
-            update_matrix_info(robot_position[0]+2, robot_position[1])
-    if(eyes.distance()>=650 and eyes.distance()<=890):
-        if(robot_position[0]<=2):
+            left_object = 2 #a variavel fica a 2, pois está um objeto a 2 casas de distancia
+            update_matrix_info(robot_position[0]+2, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=650 and eyes.distance()<=890): #se a distancia do objeto for inferior a 890, entao o objeto está a 3 casas de distancia
+        if(robot_position[0]<=2): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 3 casas - Left')
-            left_object = 3
-            update_matrix_info(robot_position[0]+3, robot_position[1])
-    if(eyes.distance()>=900 and eyes.distance()<=1060):
-        if(robot_position[0]<=1):
+            left_object = 3  #a variavel fica a 3, pois está um objeto a 3 casas de distancia
+            update_matrix_info(robot_position[0]+3, robot_position[1]) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=900 and eyes.distance()<=1060): #se a distancia do objeto for inferior a 1060, entao o objeto está a 4 casas de distancia
+        if(robot_position[0]<=1): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 4 casas - Left')  
-            left_object = 4
-            update_matrix_info(robot_position[0]+4, robot_position[1])
+            left_object = 4 #a variavel fica a 4, pois está um objeto a 4 casas de distancia
+            update_matrix_info(robot_position[0]+4, robot_position[1]) #coloca o objeto reconhecido na matrix interna
     return 0
 
 #funcao de reconhecimento para a frente
 def recon_front():
     global front_object
-    if(eyes.distance() <= 370):
-        if(robot_position[1]<=4):
+    if(eyes.distance() <= 370): #se a distancia do objeto for inferior a 370, entao o objeto está a 1 casa de distancia
+        if(robot_position[1]<=4): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 1 casas - Front')
-            front_object = 1
-            update_matrix_info(robot_position[0], robot_position[1]+1)
-    if(eyes.distance()>=380 and eyes.distance()<=640):
-        if(robot_position[1]<=3):
+            front_object = 1  #a variavel fica a 1, pois está um objeto a 1 casa de distancia
+            update_matrix_info(robot_position[0], robot_position[1]+1) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=380 and eyes.distance()<=640): #se a distancia do objeto for inferior a 640, entao o objeto está a 2 casas de distancia
+        if(robot_position[1]<=3): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 2 casas - Front')
-            front_object = 2
-            update_matrix_info(robot_position[0], robot_position[1]+2)
-    if(eyes.distance()>=650 and eyes.distance()<=890):
-        if(robot_position[1]<=2):
+            front_object = 2 #a variavel fica a 2, pois está um objeto a 2 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]+2) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=650 and eyes.distance()<=890): #se a distancia do objeto for inferior a 890, entao o objeto está a 3 casas de distancia
+        if(robot_position[1]<=2): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 3 casas - Front')
-            front_object = 3
-            update_matrix_info(robot_position[0], robot_position[1]+3)
-    if(eyes.distance()>=900 and eyes.distance()<=1060):
-        if(robot_position[1]<=1):
+            front_object = 3  #a variavel fica a 3, pois está um objeto a 3 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]+3) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=900 and eyes.distance()<=1060): #se a distancia do objeto for inferior a 1060, entao o objeto está a 4 casas de distancia
+        if(robot_position[1]<=1): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 4 casas - Front')  
-            front_object = 4
-            update_matrix_info(robot_position[0], robot_position[1]+4)
+            front_object = 4 #a variavel fica a 4, pois está um objeto a 4 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]+4) #coloca o objeto reconhecido na matrix interna
     return 0
 
 #funcao de reconhecimento para trás
 def recon_back():
     global back_object
-    if(eyes.distance() <= 370):
-        if(robot_position[1]>=1):
+
+    if(eyes.distance() <= 370): #se a distancia do objeto for inferior a 370, entao o objeto está a 1 casa de distancia
+        if(robot_position[1]>=1): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 1 casas - Back')
-            back_object = 1
-            update_matrix_info(robot_position[0], robot_position[1]-1)
-    if(eyes.distance()>=380 and eyes.distance()<=640):
-        if(robot_position[1]>=2):
+            back_object = 1  #a variavel fica a 1, pois está um objeto a 1 casa de distancia
+            update_matrix_info(robot_position[0], robot_position[1]-1) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=380 and eyes.distance()<=640): #se a distancia do objeto for inferior a 640, entao o objeto está a 2 casas de distancia
+        if(robot_position[1]>=2): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 2 casas - Back')
-            back_object = 2
-            update_matrix_info(robot_position[0], robot_position[1]-2)
-    if(eyes.distance()>=650 and eyes.distance()<=890):
-        if(robot_position[1]>=3):
+            back_object = 2 #a variavel fica a 2, pois está um objeto a 2 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]-2) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=650 and eyes.distance()<=890): #se a distancia do objeto for inferior a 890, entao o objeto está a 3 casas de distancia
+        if(robot_position[1]>=3): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 3 casas - Back')
-            back_object = 3
-            update_matrix_info(robot_position[0], robot_position[1]-3)
-    if(eyes.distance()>=900 and eyes.distance()<=1060):
-        if(robot_position[1]>=4):
+            back_object = 3 #a variavel fica a 3, pois está um objeto a 3 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]-3) #coloca o objeto reconhecido na matrix interna
+    if(eyes.distance()>=900 and eyes.distance()<=1060): #se a distancia do objeto for inferior a 1060, entao o objeto está a 4 casas de distancia
+        if(robot_position[1]>=4): #verifica a posicao do robot, para nao haver reconhecimentos fora da matrix
             print('Objeto - 4 casas - Back')  
-            back_object = 4
-            update_matrix_info(robot_position[0], robot_position[1]-4)
+            back_object = 4 #a variavel fica a 4, pois está um objeto a 4 casas de distancia
+            update_matrix_info(robot_position[0], robot_position[1]-4) #coloca o objeto reconhecido na matrix interna
 
     return False
 
 #--------------------------------------------------------------------------
-
+#funcao que define o movimento que o robot irá fazer, dependendo se já apanhou uma peça ou nao, e
+#se houver objetos perto
 def move(f,r,b,l):
 
     global parts_counter
     global front_object, right_object, left_object, back_object
     global run_left, run_front, run_back, run_right
 
-    auxF = 0
-    auxL = 0
-    auxB = 0
-    auxR = 0
+    #inicialização de variaveis auxiliares aos lados
+    auxF = 0 #auxiliar frente
+    auxL = 0 #auxiliar esquerda
+    auxB = 0 #auxiliar atrás
+    auxR = 0 #auxiliar direita
     aux = 0
 
+    #atribuição dos valores recebidos pela funcao às variaveis locais
     front_object = f
     right_object = r
     left_object = l
     back_object = b
 
+    #se o robot identificar algum objeto, seja o lado que for, a variavel auxiliar fica a 1
     if (front_object != 0):
         auxF = 1
     if (right_object != 0):
@@ -262,10 +267,12 @@ def move(f,r,b,l):
     if (back_object != 0):
         auxR = 1
 
+    #soma de todas as variaveis auxiliares, para termos o numero de objetos identificados
     aux = auxF + auxB + auxL + auxR
-    if(parts_counter == 0):
-        if (aux == 1):
-            if(front_object != 0):
+
+    if(parts_counter == 0): #se o numero de peças apanhadas for 0
+        if (aux == 1): #se o numero de objetos identificados for 1
+            if(front_object != 0): #e existir um objeto à frente do robot
                 if(run_front == 0):
                     if(front_object == 1): #tem um objecto à frente a uma casa de distancia
                         color = color_sensor.color()
@@ -276,7 +283,7 @@ def move(f,r,b,l):
                             random_attack() #realiza um ataque
                             run_front = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a frente
 
-                        else:
+                        else: #se a cor nao for vermelha, entao é um objeto
                             move_front() #move-se para a frente
                             detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                             detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
@@ -298,7 +305,8 @@ def move(f,r,b,l):
                                     wait(1000) #espera
                                     random_attack() #realiza um ataque
                                     run_front = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a frente
-                                else:
+
+                                else: #se a cor nao for vermelha, entao é um objeto
                                     wait(1000) #espera
                                     detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                                     detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
@@ -370,7 +378,7 @@ def move(f,r,b,l):
                                     random_attack() #realiza um ataque
                                     run_left = 1 #coloca a variavel a 1 para que o robot saiba que nao pode mover-se para a esquerda
                                     robot.turn(128) #vira 128º, para a posição inicial, para a frente
-                                else:
+                                else: #se a cor nao for vermelha, entao é um objeto
                                     wait(1000) #espera
                                     detect_bullet() #verifica a cor, se a cor detetada for amarela, significa que apanhou uma bala
                                     detect_motorcycle_part() #verifica a cor, se a cor detetada for verde, significa que apanhou uma peca da mota
@@ -1086,86 +1094,75 @@ def move_double(destino):
 
     global run_front,run_back ,run_left ,run_right
 
+    #se a variavel 'double' escolher um tipo de movimento duplo, entao estes sao os casos:
     if (double == 'FRONT-FRONT' and run_front == 0):
-        #possible movement when line = 0,1,2,3 and column = 0,1,2,3,4,5
-        if robot_position[1] < 4:
+        if robot_position[1] < 4: #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_front() #move-se para a frente
             move_front() #move-se para a frente
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'FRONT-RIGHT' and run_front == 0):
-        #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
-        if (robot_position[1] < 5 and robot_position[0] > 0 ):
+        if (robot_position[1] < 5 and robot_position[0] > 0 ): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_front() #move-se para a frente
             move_right() #move-se para a direita
         else:
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'FRONT-LEFT' and run_front == 0):
-        #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
-        if (robot_position[1] < 5 and robot_position[0] < 5) :
+        if (robot_position[1] < 5 and robot_position[0] < 5) : #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_front() #move-se para a frente
             move_left() #move-se para a esquerda
         else:
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'BACK-BACK' and run_back == 0):
-        #possible movement when line = 2,3,4,5 and column = 0,1,2,3,4,5
-        if robot_position[1] > 1:
+        if robot_position[1] > 1: #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_back() #move-se para trás
             move_back() #move-se para trás
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'BACK-RIGHT' and run_back == 0):
-        #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (robot_position[1] > 0 and robot_position[0] > 0 ):
+        if (robot_position[1] > 0 and robot_position[0] > 0 ): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_back() #move-se para trás
             move_right() #move-se para a direita
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'BACK-LEFT' and run_back == 0):
-        #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
-        if (robot_position[1] > 0 and robot_position[0] < 5):
+        if (robot_position[1] > 0 and robot_position[0] < 5): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_back() #move-se para trás
             move_left() #move-se para a esquerda
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'LEFT-LEFT' and run_left == 0):
-        #possible movement when line = 0,1,2,3,4,5 and column = 0,1,2,3
-        if robot_position[0] < 4:
+        if robot_position[0] < 4: #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_left() #move-se para a esquerda
             move_left() #move-se para a esquerda
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'LEFT-FRONT' and run_left == 0):
-        #possible movement when line = 0,1,2,3,4 and column = 0,1,2,3,4
-        if (robot_position[1] < 5 and robot_position[0] < 5) :
+        if (robot_position[1] < 5 and robot_position[0] < 5) : #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_left() #move-se para a esquerda
             move_front() #move-se para a frente
         else : 
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'LEFT-BACK' and run_left == 0):
-        #possible movement when line = 1,2,3,4,5 and column = 0,1,2,3,4
-        if (robot_position[1] > 0 and robot_position[0] < 5) :
+        if (robot_position[1] > 0 and robot_position[0] < 5): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_left() #move-se para a esquerda
             move_back() #move-se para trás
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'RIGHT-RIGHT' and run_right == 0):
-        #possible movement when line = 0,1,2,3,4,5 and column = 2,3,4,5
-        if robot_position[0] > 1:
+        if robot_position[0] > 1: #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_right() #move-se para a direita
             move_right() #move-se para a direita
         else :
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'RIGHT-FRONT' and run_right == 0):
-        #possible movement when line = 0,1,2,3,4 and column = 1,2,3,4,5
-        if (robot_position[1] < 5 and robot_position[0] > 0 ): 
+        if (robot_position[1] < 5 and robot_position[0] > 0 ): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_right() #move-se para a direita
             move_front() #move-se para a frente
         else: 
-            return move_double('random')
+            return move_double('random') #move-se de forma random, 2 casas
     elif (double == 'RIGHT-BACK' and run_right == 0):
-        #possible movement when line = 1,2,3,4,5 and column = 1,2,3,4,5
-        if (robot_position[1] > 0 and robot_position[0] > +0 ):
+        if (robot_position[1] > 0 and robot_position[0] > +0 ): #verifica a posicao do robot na matrix, para que nao se mova para fora dela
             move_right() #move-se para a direita
             move_back() #move-se para trás
         else:
