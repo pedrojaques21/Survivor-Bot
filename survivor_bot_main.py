@@ -112,7 +112,7 @@ def random_attack():
     global bullet
     attack = choice(POSSIBLE_ATTACKS)   #   Escolhe uma opção da lista de ataques possiveis
     if bullet == 1:                # Verifica se tem a bala para poder usar o shot para matar o zombi
-        ev3.speaker.play_file("gun_shot.wav")  # Se for shot, faz um som de tiro e executa a função shot
+        ev3.speaker.play_file("Gun_Shot_Sound.wav")  # Se for shot, faz um som de tiro e executa a função shot
         shot()
         bullet = 0
         wait(1000) #espera
